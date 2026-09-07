@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<title>哲学活点地图 · 牛皮纸风格 Mockup</title>
+<style>
+  /* ========== 脚步鼠标：哈利波特活点地图脚印 ========== */
+  html, body {
+    margin: 0; padding: 0;
+    width: 100%; height: 100%;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path d="M9 3c-2.8 0-5 2.2-5 5 0 2.6 1.3 4.7 3.2 6.1l-.1 5.9c0 2.8 2 5 4.5 5s4.5-2.2 4.5-5v-5.9c1.9-1.4 3.2-3.5 3.2-6.1 0-2.8-2.2-5-5-5-1.2 0-2.4.5-3.2 1.3C10.4 3.5 9.7 3 9 3z" fill="%235a3f28"/><path d="M23 7c-2.8 0-5 2.2-5 5 0 2.6 1.3 4.7 3.2 6.1l-.1 5.9c0 2.8 2 5 4.5 5s4.5-2.2 4.5-5v-5.9c1.9-1.4 3.2-3.5 3.2-6.1 0-2.8-2.2-5-5-5-1.2 0-2.4.5-3.2 1.3C24.4 7.5 23.7 7 23 7z" fill="%235a3f28"/></svg>') 18 18, auto;
+  }
+
+  body {
+    font-family: "Georgia", "Times New Roman", "Noto Serif SC", "Source Han Serif SC", "Songti SC", serif;
+    color: #5a3f28;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  /* ========== 牛皮纸背景 ========== */
+  .parchment {
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 15%, rgba(180,140,80,0.18), transparent 55%),
+      radial-gradient(ellipse at 80% 85%, rgba(150,110,60,0.22), transparent 60%),
+      radial-gradient(ellipse at center, rgba(255,240,200,1) 40%, rgba(230,200,140,1) 80%, rgba(190,150,90,1) 100%);
+    filter: url(#paper-texture);
+    z-index: -1;
+  }
+
+  /* 四角暗角（仿旧羊皮纸） */
+  .vignette {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(80,50,20,0.45) 100%);
+  }
+
+  .frame {
+    position: relative; z-index: 1;
+    width: 100%; height: 100%;
+    padding: 30px 40px;
+    box-sizing: border-box;
+  }
+
+  /* ========== 标题 ========== */
+  .title {
+    font-size: 28px;
+    letter-spacing: 4px;
+    font-weight: bold;
+    color: #4a2f18;
+    text-align: center;
+    margin-bottom: 8px;
+    text-shadow: 1px 1px 0 rgba(255,230,180,0.7);
+  }
+  .subtitle {
+    font-size: 13px; letter-spacing: 8px; text-align: center; color: #7a5a38;
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+  .title-en {
+    font-family: "Georgia", serif;
+    font-style: italic;
+    text-align: center;
+    font-size: 12px; color: #8a6a48; letter-spacing: 2px;
+    margin-top: -6px; margin-bottom: 10px;
+  }
+
+  /* ========== 主画布 ========== */
+  .canvas-wrap {
+    position: relative;
+    width: 100%; height: calc(100% - 80px);
+  }
+
+  /* ========== 详情卡（示例：康德） ========== */
+  .detail-card {
+    position: absolute;
+    top: 0; right: 0;
+    width: 260px;
+    background: linear-gradient(160deg, rgba(255,230,190,0.95), rgba(230,200,150,0.95));
+    border: 1px solid #8a6a48;
+    border-radius: 4px;
+    padding: 14px 16px;
+    box-shadow:
+      0 3px 12px rgba(70,40,10,0.25),
+      inset 0 0 20px rgba(160,120,60,0.12);
+    font-size: 12px;
+    color: #4a3018;
+  }
+  .detail-card::before {
+    content: "";
+    position: absolute; inset: 4px;
+    border: 1px dashed rgba(120,80,30,0.35);
+    border-radius: 2px;
+    pointer-events: none;
+  }
+  .detail-card h3 {
+    margin: 0 0 2px 0;
+    font-size: 17px; letter-spacing: 1px; color: #3a2008;
+  }
+  .detail-card .en {
+    font-style: italic; color: #7a5a38; font-size: 11px; margin-bottom: 6px;
+  }
+  .detail-card .meta {
+    color: #6a4a28; font-size: 10px; margin-bottom: 8px;
+  }
+  .detail-card .section {
+    border-left: 3px solid #a07a4a;
+    padding: 3px 8px;
+    margin: 8px 0;
+    line-height: 1.5;
+  }
+  .detail-card .section-title {
+    font-weight: bold; font-size: 12px; margin-bottom: 2px;
+    color: #4a2f18;
+  }
+  .detail-card .tags {
+    display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px;
+  }
+  .detail-card .tag {
+    font-size: 10px;
+    padding: 1px 6px;
+    background: rgba(140,100,50,0.2);
+    border: 1px solid rgba(120,80,30,0.4);
+    border-radius: 8px;
+    color: #5a3a18;
+  }
+  .detail-card .relation {
+    font-size: 11px; color: #5a3a18; line-height: 1.7;
+  }
+  .detail-card .relation .arrow-in { color: #3a5a38; }
+  .detail-card .relation .arrow-out { color: #3a3a6a; }
+  .detail-card .relation .opp { color: #8a3a38; }
+
+  /* ========== 图例 ========== */
+  .legend {
+    position: absolute;
+    bottom: 0; left: 0;
+    background: linear-gradient(140deg, rgba(250,225,180,0.9), rgba(230,200,150,0.9));
+    border: 1px solid #8a6a48;
+    padding: 8px 14px;
+    font-size: 11px;
+    color: #4a3018;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; margin: 3px 0; }
+  .legend-line-solid {
+    width: 34px; height: 0; border-top: 2px solid #6a4a28;
+  }
+  .legend-line-dashed {
+    width: 34px; height: 0; border-top: 2px dashed #8a3a38;
+  }
+
+  /* ========== 时代横条（左侧标签） ========== */
+  .era-label {
+    font-weight: bold;
+    font-size: 13px;
+    fill: #6a4a28;
+    letter-spacing: 2px;
+  }
+  .era-range {
+    font-size: 10px;
+    fill: #8a6a48;
+    font-style: italic;
+  }
+  .era-band {
+    fill: none;
+    stroke: rgba(120,80,30,0.18);
+    stroke-width: 1;
+    stroke-dasharray: 4 6;
+  }
+</style>
+</head>
+<body>
+
+<!-- SVG 滤镜：牛皮纸噪点纹理 -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <filter id="paper-texture" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="5"/>
+      <feColorMatrix values="0 0 0 0 0.65
+                             0 0 0 0 0.50
+                             0 0 0 0 0.25
+                             0 0 0 0.15 0"/>
+      <feComposite in2="SourceGraphic" operator="in"/>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+    <!-- 墨点径向渐变（中心深边缘浅，模拟墨水滴在牛皮纸上渗透） -->
+    <radialGradient id="ink-spot" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3a2008" stop-opacity="1"/>
+      <stop offset="65%" stop-color="#5a3820" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#7a5430" stop-opacity="0.8"/>
+    </radialGradient>
+    <radialGradient id="ink-spot-lg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3a2008" stop-opacity="1"/>
+      <stop offset="70%" stop-color="#5a3820" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#7a5430" stop-opacity="0.7"/>
+    </radialGradient>
+  </defs>
+</svg>
+
+<div class="parchment"></div>
+<div class="vignette"></div>
+
+<div class="frame">
+  <div class="title">哲 学 活 点 地 图</div>
+  <div class="title-en">—— The Philosophers' Marauder's Map ——</div>
+  <div class="subtitle">思想星图 · 牛皮纸典藏版</div>
+
+  <div class="canvas-wrap">
+    <!-- 2D SVG 画布：按时代纵向排布，横向按学派分组 -->
+    <svg id="map" width="100%" height="100%" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid meet">
+
+      <!-- 时代区域横线 + 标签 -->
+      <g id="eras">
+        <!-- 古希腊 -->
+        <line class="era-band" x1="60" y1="90" x2="1140" y2="90"/>
+        <text class="era-label" x="10" y="82">古希腊</text>
+        <text class="era-range" x="10" y="100">BC.600–200</text>
+        <!-- 罗马·中世纪 -->
+        <line class="era-band" x1="60" y1="200" x2="1140" y2="200"/>
+        <text class="era-label" x="10" y="192">罗马·中世纪</text>
+        <text class="era-range" x="10" y="210">200–1500</text>
+        <!-- 近代早期 -->
+        <line class="era-band" x1="60" y1="310" x2="1140" y2="310"/>
+        <text class="era-label" x="10" y="302">近代早期</text>
+        <text class="era-range" x="10" y="320">1500–1750</text>
+        <!-- 近代理性·经验 -->
+        <line class="era-band" x1="60" y1="420" x2="1140" y2="420"/>
+        <text class="era-label" x="10" y="412">启蒙·理性·经验</text>
+        <text class="era-range" x="10" y="430">1750–1830</text>
+        <!-- 十九世纪 -->
+        <line class="era-band" x1="60" y1="530" x2="1140" y2="530"/>
+        <text class="era-label" x="10" y="522">观念论·狂飙</text>
+        <text class="era-range" x="10" y="540">1830–1900</text>
+        <!-- 二十世纪 -->
+        <line class="era-band" x1="60" y1="640" x2="1140" y2="640"/>
+        <text class="era-label" x="10" y="632">二十世纪</text>
+        <text class="era-range" x="10" y="650">1900–今</text>
+      </g>
+
+      <!-- 关系连线（先画在节点后面，影响=褐实线，对立=红褐虚线） -->
+      <g id="links" fill="none" stroke-linecap="round">
+        <!-- 传承（实线 #6a4a28） -->
+        <line class="link influence" x1="180" y1="130" x2="280" y2="130" stroke="#6a4a28" stroke-width="1.4"/>
+        <line class="link influence" x1="280" y1="130" x2="390" y2="130" stroke="#6a4a28" stroke-width="1.4"/>
+        <line x1="230" y1="240" x2="340" y2="240" stroke="#6a4a28" stroke-width="1.2" opacity="0.8"/>
+        <line x1="500" y1="350" x2="630" y2="350" stroke="#6a4a28" stroke-width="1.2" opacity="0.85"/>
+        <line x1="700" y1="350" x2="820" y1="460" stroke="#6a4a28" stroke-width="1.3" opacity="0.9"/> <!-- 洛克→休谟 -->
+        <line x1="820" y1="460" x2="520" y2="570" stroke="#6a4a28" stroke-width="1.6" opacity="0.95"/> <!-- 休谟→康德（打断了独断论睡梦） -->
+        <line x1="520" y1="570" x2="620" y2="570" stroke="#6a4a28" stroke-width="1.3"/> <!-- 康德→费希特 -->
+        <line x1="520" y1="570" x2="720" y2="570" stroke="#6a4a28" stroke-width="1.3"/> <!-- 康德→黑格尔 -->
+        <line x1="520" y1="570" x2="840" y2="570" stroke="#6a4a28" stroke-width="1.2" opacity="0.9"/> <!-- 康德→叔本华 -->
+        <line x1="700" y1="350" x2="400" y2="570" stroke="#6a4a28" stroke-width="1.1" opacity="0.7"/> <!-- 洛克→卢梭 -->
+        <line x1="640" y1="680" x2="760" y2="680" stroke="#6a4a28" stroke-width="1.2"/> <!-- 罗素→维特根斯坦 -->
+        <line x1="940" y1="130" x2="940" y2="240" stroke="#6a4a28" stroke-width="1.4" opacity="0.85"/> <!-- 孔子→孟子 -->
+        <line x1="940" y1="240" x2="1060" y2="350" stroke="#6a4a28" stroke-width="1.3" opacity="0.85"/> <!-- 孟子→朱熹 -->
+        <line x1="1060" y1="350" x2="1060" y2="460" stroke="#6a4a28" stroke-width="1.3"/> <!-- 朱熹→王阳明 -->
+        <line x1="1030" y1="130" x2="1030" y2="240" stroke="#6a4a28" stroke-width="1.3" opacity="0.85"/> <!-- 老子→庄子 -->
+
+        <!-- 对立 / 批判（虚线 #8a3a38） -->
+        <line x1="820" y1="460" x2="700" y2="350" stroke="#8a3a38" stroke-width="1.3" stroke-dasharray="5 4" opacity="0.8"/> <!-- 休谟 vs 理性派笛卡尔/斯宾诺莎 （示意到洛克） -->
+        <line x1="520" y1="570" x2="500" y2="350" stroke="#8a3a38" stroke-width="1.3" stroke-dasharray="5 4" opacity="0.8"/> <!-- 康德调和理性派 对立 笛卡尔独断论 -->
+        <line x1="840" y1="570" x2="720" y2="570" stroke="#8a3a38" stroke-width="1.4" stroke-dasharray="5 4" opacity="0.9"/> <!-- 叔本华 痛骂 黑格尔 -->
+        <line x1="940" y1="570" x2="720" y2="570" stroke="#8a3a38" stroke-width="1.3" stroke-dasharray="5 4" opacity="0.85"/> <!-- 马克思 批判 黑格尔(唯心头脚倒立) -->
+      </g>
+
+      <!-- 哲学家节点（墨点）：每行 y 固定在 era band 中央 -->
+      <!-- y 轴：era band at y=90 → 节点中心 y=130 (古希腊), 240 (中世), 350 (近代早), 460 (启蒙), 570 (19C), 680 (20C) -->
+      <g id="nodes">
+        <!-- ============== 古希腊 y=130 ============== -->
+        <g class="node" data-id="socrates">
+          <circle cx="180" cy="130" r="10" fill="url(#ink-spot)"/>
+          <text x="180" y="153" text-anchor="middle" font-size="12" fill="#3a2008" font-weight="bold">苏格拉底</text>
+          <text x="180" y="165" text-anchor="middle" font-size="9" fill="#7a5a38" font-style="italic">Socrates</text>
+        </g>
+        <g class="node" data-id="plato">
+          <circle cx="280" cy="130" r="11" fill="url(#ink-spot-lg)"/>
+          <text x="280" y="153" text-anchor="middle" font-size="12" fill="#3a2008" font-weight="bold">柏拉图</text>
+          <text x="280" y="165" text-anchor="middle" font-size="9" fill="#7a5a38" font-style="italic">Plato</text>
+        </g>
+        <g class="node" data-id="aristotle">
+          <circle cx="390" cy="130" r="12" fill="url(#ink-spot-lg)"/>
+          <text x="390" y="153" text-anchor="middle" font-size="12" fill="#3a2008" font-weight="bold">亚里士多德</text>
+          <text x="390" y="165" text-anchor="middle" font-size="9" fill="#7a5a38" font-style="italic">Aristotle</text>
+        </g>
+        <g class="node"><circle cx="500" cy="130" r="7.5" fill="url(#ink-spot)"/>
+          <text x="500" y="151" text-anchor="middle" font-size="11" fill="#4a3018">伊壁鸠鲁</text>
+          <text x="500" y="163" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Epicurus</text>
+        </g>
+        <g class="node"><circle cx="600" cy="130" r="7.5" fill="url(#ink-spot)"/>
+          <text x="600" y="151" text-anchor="middle" font-size="11" fill="#4a3018">芝诺</text>
+          <text x="600" y="163" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Zeno</text>
+        </g>
+
+        <!-- ============== 罗马·中世纪 y=240 ============== -->
+        <g class="node"><circle cx="230" cy="240" r="8.5" fill="url(#ink-spot)"/>
+          <text x="230" y="262" text-anchor="middle" font-size="11" fill="#4a3018">塞内卡</text>
+          <text x="230" y="274" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Seneca</text>
+        </g>
+        <g class="node"><circle cx="340" cy="240" r="9.5" fill="url(#ink-spot)"/>
+          <text x="340" y="262" text-anchor="middle" font-size="11" fill="#4a3018">奥古斯丁</text>
+          <text x="340" y="274" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Augustine</text>
+        </g>
+        <g class="node"><circle cx="450" cy="240" r="9.5" fill="url(#ink-spot)"/>
+          <text x="450" y="262" text-anchor="middle" font-size="11" fill="#4a3018">阿奎那</text>
+          <text x="450" y="274" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Aquinas</text>
+        </g>
+        <g class="node"><circle cx="560" cy="240" r="8" fill="url(#ink-spot)"/>
+          <text x="560" y="262" text-anchor="middle" font-size="11" fill="#4a3018">马基雅维利</text>
+          <text x="560" y="274" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Machiavelli</text>
+        </g>
+
+        <!-- ============== 近代早期 y=350（理性派左、经验派右） ============== -->
+        <g class="node"><circle cx="400" cy="350" r="8.5" fill="url(#ink-spot)"/>
+          <text x="400" y="372" text-anchor="middle" font-size="11" fill="#4a3018">霍布斯</text>
+          <text x="400" y="384" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Hobbes</text>
+        </g>
+        <g class="node"><circle cx="500" cy="350" r="10" fill="url(#ink-spot)"/>
+          <text x="500" y="372" text-anchor="middle" font-size="12" fill="#3a2008" font-weight="bold">笛卡尔</text>
+          <text x="500" y="384" text-anchor="middle" font-size="9" fill="#7a5a38" font-style="italic">Descartes</text>
+        </g>
+        <g class="node"><circle cx="630" cy="350" r="8.5" fill="url(#ink-spot)"/>
+          <text x="630" y="372" text-anchor="middle" font-size="11" fill="#4a3018">斯宾诺莎</text>
+          <text x="630" y="384" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Spinoza</text>
+        </g>
+        <g class="node"><circle cx="700" cy="350" r="10" fill="url(#ink-spot)"/>
+          <text x="700" y="372" text-anchor="middle" font-size="12" fill="#3a2008" font-weight="bold">洛克</text>
+          <text x="700" y="384" text-anchor="middle" font-size="9" fill="#7a5a38" font-style="italic">Locke</text>
+        </g>
+        <g class="node"><circle cx="790" cy="350" r="7.5" fill="url(#ink-spot)"/>
+          <text x="790" y="372" text-anchor="middle" font-size="11" fill="#4a3018">贝克莱</text>
+          <text x="790" y="384" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Berkeley</text>
+        </g>
+        <g class="node"><circle cx="820" cy="460" r="10.5" fill="url(#ink-spot)"/>
+          <text x="820" y="482" text-anchor="middle" font-size="12" fill="#3a2008" font-weight="bold">休谟</text>
+          <text x="820" y="494" text-anchor="middle" font-size="9" fill="#7a5a38" font-style="italic">Hume</text>
+        </g>
+        <g class="node"><circle cx="400" cy="570" r="8.5" fill="url(#ink-spot)"/>
+          <text x="400" y="592" text-anchor="middle" font-size="11" fill="#4a3018">卢梭</text>
+          <text x="400" y="604" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Rousseau</text>
+        </g>
+
+        <!-- ============== 启蒙/德国古典 y=570 ============== -->
+        <g class="node" data-id="kant">
+          <circle cx="520" cy="570" r="13" fill="url(#ink-spot-lg)" stroke="#a06830" stroke-width="2.5"/>
+          <text x="520" y="594" text-anchor="middle" font-size="13" fill="#2a1008" font-weight="bold">康 德</text>
+          <text x="520" y="607" text-anchor="middle" font-size="9.5" fill="#7a5a38" font-style="italic">Kant</text>
+        </g>
+        <g class="node"><circle cx="620" cy="570" r="8" fill="url(#ink-spot)"/>
+          <text x="620" y="592" text-anchor="middle" font-size="11" fill="#4a3018">费希特</text>
+          <text x="620" y="604" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Fichte</text>
+        </g>
+        <g class="node"><circle cx="720" cy="570" r="10.5" fill="url(#ink-spot)"/>
+          <text x="720" y="592" text-anchor="middle" font-size="12" fill="#3a2008" font-weight="bold">黑格尔</text>
+          <text x="720" y="604" text-anchor="middle" font-size="9" fill="#7a5a38" font-style="italic">Hegel</text>
+        </g>
+        <g class="node"><circle cx="840" cy="570" r="9.5" fill="url(#ink-spot)"/>
+          <text x="840" y="592" text-anchor="middle" font-size="11" fill="#4a3018">叔本华</text>
+          <text x="840" y="604" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Schopenhauer</text>
+        </g>
+        <g class="node"><circle cx="940" cy="570" r="10.5" fill="url(#ink-spot)"/>
+          <text x="940" y="592" text-anchor="middle" font-size="12" fill="#3a2008" font-weight="bold">马克思</text>
+          <text x="940" y="604" text-anchor="middle" font-size="9" fill="#7a5a38" font-style="italic">Marx</text>
+        </g>
+        <g class="node"><circle cx="1060" cy="570" r="9.5" fill="url(#ink-spot)"/>
+          <text x="1060" y="592" text-anchor="middle" font-size="11" fill="#4a3018">尼采</text>
+          <text x="1060" y="604" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Nietzsche</text>
+        </g>
+
+        <!-- ============== 20世纪 y=680 ============== -->
+        <g class="node"><circle cx="540" cy="680" r="8.5" fill="url(#ink-spot)"/>
+          <text x="540" y="702" text-anchor="middle" font-size="11" fill="#4a3018">海德格尔</text>
+          <text x="540" y="714" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Heidegger</text>
+        </g>
+        <g class="node"><circle cx="640" cy="680" r="9" fill="url(#ink-spot)"/>
+          <text x="640" y="702" text-anchor="middle" font-size="11" fill="#4a3018">罗素</text>
+          <text x="640" y="714" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Russell</text>
+        </g>
+        <g class="node"><circle cx="760" cy="680" r="10" fill="url(#ink-spot)"/>
+          <text x="760" y="702" text-anchor="middle" font-size="12" fill="#3a2008" font-weight="bold">维特根斯坦</text>
+          <text x="760" y="714" text-anchor="middle" font-size="9" fill="#7a5a38" font-style="italic">Wittgenstein</text>
+        </g>
+        <g class="node"><circle cx="870" cy="680" r="8.5" fill="url(#ink-spot)"/>
+          <text x="870" y="702" text-anchor="middle" font-size="11" fill="#4a3018">萨特</text>
+          <text x="870" y="714" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Sartre</text>
+        </g>
+        <g class="node"><circle cx="980" cy="680" r="8" fill="url(#ink-spot)"/>
+          <text x="980" y="702" text-anchor="middle" font-size="11" fill="#4a3018">罗尔斯</text>
+          <text x="980" y="714" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Rawls</text>
+        </g>
+        <g class="node"><circle cx="1080" cy="680" r="8.5" fill="url(#ink-spot)"/>
+          <text x="1080" y="702" text-anchor="middle" font-size="11" fill="#4a3018">福柯</text>
+          <text x="1080" y="714" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Foucault</text>
+        </g>
+
+        <!-- ============== 东方 y 侧：古希腊/中世/近代早期/启蒙 放在右边单独列（孔子→孟→朱→王；老→庄；龙树；福泽谕吉） ============== -->
+        <g class="node"><circle cx="940" cy="130" r="11.5" fill="url(#ink-spot-lg)"/>
+          <text x="940" y="153" text-anchor="middle" font-size="12" fill="#3a2008" font-weight="bold">孔子</text>
+          <text x="940" y="165" text-anchor="middle" font-size="9" fill="#7a5a38" font-style="italic">Confucius</text>
+        </g>
+        <g class="node"><circle cx="1030" cy="130" r="10" fill="url(#ink-spot)"/>
+          <text x="1030" y="153" text-anchor="middle" font-size="12" fill="#3a2008" font-weight="bold">老子</text>
+          <text x="1030" y="165" text-anchor="middle" font-size="9" fill="#7a5a38" font-style="italic">Laozi</text>
+        </g>
+        <g class="node"><circle cx="1110" cy="130" r="8" fill="url(#ink-spot)"/>
+          <text x="1110" y="151" text-anchor="middle" font-size="11" fill="#4a3018">龙树</text>
+          <text x="1110" y="163" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Nagarjuna</text>
+        </g>
+        <g class="node"><circle cx="940" cy="240" r="9.5" fill="url(#ink-spot)"/>
+          <text x="940" y="262" text-anchor="middle" font-size="11" fill="#4a3018">孟子</text>
+          <text x="940" y="274" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Mencius</text>
+        </g>
+        <g class="node"><circle cx="1030" cy="240" r="9.5" fill="url(#ink-spot)"/>
+          <text x="1030" y="262" text-anchor="middle" font-size="11" fill="#4a3018">庄子</text>
+          <text x="1030" y="274" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Zhuangzi</text>
+        </g>
+        <g class="node"><circle cx="1060" cy="350" r="8.5" fill="url(#ink-spot)"/>
+          <text x="1060" y="372" text-anchor="middle" font-size="11" fill="#4a3018">朱熹</text>
+          <text x="1060" y="384" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Zhu Xi</text>
+        </g>
+        <g class="node"><circle cx="1060" cy="460" r="9" fill="url(#ink-spot)"/>
+          <text x="1060" y="482" text-anchor="middle" font-size="11" fill="#4a3018">王阳明</text>
+          <text x="1060" y="494" text-anchor="middle" font-size="8.5" fill="#7a5a38" font-style="italic">Wang Yangming</text>
+        </g>
+        <g class="node"><circle cx="1150" cy="460" r="7.5" fill="url(#ink-spot)"/>
+          <text x="1150" y="482" text-anchor="middle" font-size="11" fill="#4a3018">福泽谕吉</text>
+          <text x="1150" y="494" text-anchor="middle" font-size="8" fill="#7a5a38" font-style="italic">Fukuzawa</text>
+        </g>
+      </g>
+
+    </svg>
+
+    <!-- ========== 详情卡（康德示例） ========== -->
+    <div class="detail-card">
+      <h3>康 德</h3>
+      <div class="en">Immanuel Kant · 1724–1804</div>
+      <div class="meta">德国 · 德国古典哲学 / 批判哲学</div>
+      <div class="tags">
+        <span class="tag">德国古典哲学</span>
+        <span class="tag">先验唯心论</span>
+      </div>
+      <div class="section">
+        <div class="section-title">💡 核心观点</div>
+        人为自然立法。通过三大批判划分现象界与物自体。
+      </div>
+      <div class="section" style="border-left-color:#b08040">
+        <div class="section-title">📜 生平</div>
+        柯尼斯堡虔诚派家庭之子，终身教授。《纯粹理性批判》出版时已57岁，此后11年沉默思考。
+      </div>
+      <div class="relation">
+        <div><span class="arrow-in">← 受影响：</span>柏拉图、笛卡尔、休谟、卢梭</div>
+        <div><span class="arrow-out">→ 影响：</span>费希特、黑格尔、叔本华、马克思</div>
+        <div><span class="opp">✗ 对立：</span>笛卡尔独断论、贝克莱纯观念论</div>
+        <div><span class="opp">被批判：</span>黑格尔、叔本华、尼采</div>
+      </div>
+    </div>
+
+    <!-- ========== 图例 ========== -->
+    <div class="legend">
+      <div style="font-weight:bold; font-size:12px; margin-bottom:4px; letter-spacing:1px;">图例</div>
+      <div class="legend-item"><div class="legend-line-solid"></div><span>传承 / 影响</span></div>
+      <div class="legend-item"><div class="legend-line-dashed"></div><span>对立 / 批判</span></div>
+      <div style="margin-top:6px; font-size:10px; color:#7a5a38; font-style:italic;">
+        🦶 移动鼠标即可见脚印
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // 小动画：墨点节点鼠标悬停轻微放大 + 旋转暗角
+  const svg = document.getElementById('map');
+  const nodes = svg.querySelectorAll('g.node');
+  nodes.forEach(g => {
+    const c = g.querySelector('circle');
+    g.addEventListener('mouseenter', () => {
+      c.setAttribute('r', parseFloat(c.getAttribute('r')) * 1.35);
+      g.style.cursor = "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"36\" height=\"36\" viewBox=\"0 0 36 36\"><path d=\"M9 3c-2.8 0-5 2.2-5 5 0 2.6 1.3 4.7 3.2 6.1l-.1 5.9c0 2.8 2 5 4.5 5s4.5-2.2 4.5-5v-5.9c1.9-1.4 3.2-3.5 3.2-6.1 0-2.8-2.2-5-5-5-1.2 0-2.4.5-3.2 1.3C10.4 3.5 9.7 3 9 3z\" fill=\"%238a3a18\"/><path d=\"M23 7c-2.8 0-5 2.2-5 5 0 2.6 1.3 4.7 3.2 6.1l-.1 5.9c0 2.8 2 5 4.5 5s4.5-2.2 4.5-5v-5.9c1.9-1.4 3.2-3.5 3.2-6.1 0-2.8-2.2-5-5-5-1.2 0-2.4.5-3.2 1.3C24.4 7.5 23.7 7 23 7z\" fill=\"%238a3a18\"/></svg>') 18 18, auto";
+    });
+    g.addEventListener('mouseleave', () => {
+      const orig = parseFloat(c.getAttribute('r')) / 1.35;
+      c.setAttribute('r', orig);
+    });
+  });
+</script>
+</body>
+</html>

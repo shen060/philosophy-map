@@ -1,0 +1,1626 @@
+[
+  {
+    "id": "laozi",
+    "name": "老子",
+    "name_en": "Laozi",
+    "lifespan": "约前571年—约前471年",
+    "origin": "中国·春秋",
+    "school": "道家",
+    "key_works": [
+      "《道德经》"
+    ],
+    "core_ideas": "道法自然，无为而治，反者道之动，柔弱胜刚强",
+    "category": "eastern",
+    "tradition": "chinese",
+    "era": "先秦"
+  },
+  {
+    "id": "confucius",
+    "name": "孔子",
+    "name_en": "Confucius",
+    "lifespan": "前551年—前479年",
+    "origin": "中国·春秋·鲁国",
+    "school": "儒家",
+    "key_works": [
+      "《论语》",
+      "《春秋》"
+    ],
+    "core_ideas": "仁、义、礼、智、信，克己复礼，为政以德",
+    "category": "eastern",
+    "tradition": "chinese",
+    "era": "先秦"
+  },
+  {
+    "id": "mozi",
+    "name": "墨子",
+    "name_en": "Mozi",
+    "lifespan": "约前470年—约前391年",
+    "origin": "中国·战国·宋国",
+    "school": "墨家",
+    "key_works": [
+      "《墨子》"
+    ],
+    "core_ideas": "兼爱、非攻、尚贤、尚同、节用、明鬼",
+    "category": "eastern",
+    "tradition": "chinese",
+    "era": "先秦"
+  },
+  {
+    "id": "zhuangzi",
+    "name": "庄子",
+    "name_en": "Zhuangzi",
+    "lifespan": "约前369年—约前286年",
+    "origin": "中国·战国·宋国",
+    "school": "道家",
+    "key_works": [
+      "《庄子》"
+    ],
+    "core_ideas": "逍遥游，齐物论，心斋坐忘，天人合一",
+    "category": "eastern",
+    "tradition": "chinese",
+    "era": "先秦"
+  },
+  {
+    "id": "mencius",
+    "name": "孟子",
+    "name_en": "Mencius",
+    "lifespan": "约前372年—前289年",
+    "origin": "中国·战国·邹国",
+    "school": "儒家",
+    "key_works": [
+      "《孟子》"
+    ],
+    "core_ideas": "性善论，仁政，民为贵君为轻，养浩然之气",
+    "category": "eastern",
+    "tradition": "chinese",
+    "era": "先秦"
+  },
+  {
+    "id": "xunzi",
+    "name": "荀子",
+    "name_en": "Xunzi",
+    "lifespan": "约前313年—约前238年",
+    "origin": "中国·战国·赵国",
+    "school": "儒家",
+    "key_works": [
+      "《荀子》"
+    ],
+    "core_ideas": "性恶论，礼法并重，天行有常不为尧存不为桀亡",
+    "category": "eastern",
+    "tradition": "chinese",
+    "era": "先秦"
+  },
+  {
+    "id": "hanfei",
+    "name": "韩非子",
+    "name_en": "Han Fei",
+    "lifespan": "约前280年—前233年",
+    "origin": "中国·战国·韩国",
+    "school": "法家",
+    "key_works": [
+      "《韩非子》"
+    ],
+    "core_ideas": "法、术、势结合，以法治国，人性自利",
+    "category": "eastern",
+    "tradition": "chinese",
+    "era": "先秦"
+  },
+  {
+    "id": "dong_zhongshu",
+    "name": "董仲舒",
+    "name_en": "Dong Zhongshu",
+    "lifespan": "前179年—前104年",
+    "origin": "中国·西汉·广川",
+    "school": "儒家/汉代经学",
+    "key_works": [
+      "《春秋繁露》"
+    ],
+    "core_ideas": "天人感应，罢黜百家独尊儒术，三纲五常",
+    "category": "eastern",
+    "tradition": "chinese",
+    "era": "两汉"
+  },
+  {
+    "id": "wang_chong",
+    "name": "王充",
+    "name_en": "Wang Chong",
+    "lifespan": "27年—约97年",
+    "origin": "中国·东汉·会稽",
+    "school": "唯物主义",
+    "key_works": [
+      "《论衡》"
+    ],
+    "core_ideas": "疾虚妄，批判天人感应与谶纬，气一元论",
+    "category": "eastern",
+    "tradition": "chinese",
+    "era": "两汉"
+  },
+  {
+    "id": "wang_bi",
+    "name": "王弼",
+    "name_en": "Wang Bi",
+    "lifespan": "226年—249年",
+    "origin": "中国·曹魏·山阳",
+    "school": "玄学",
+    "key_works": [
+      "《老子注》",
+      "《周易注》"
+    ],
+    "core_ideas": "以无为本，得意忘言，圣人体无，名教出于自然",
+    "category": "eastern",
+    "tradition": "chinese",
+    "era": "魏晋南北朝"
+  },
+  {
+    "id": "huineng",
+    "name": "慧能",
+    "name_en": "Huineng",
+    "lifespan": "638年—713年",
+    "origin": "中国·唐代·岭南",
+    "school": "佛教/禅宗",
+    "key_works": [
+      "《六祖坛经》"
+    ],
+    "core_ideas": "顿悟成佛，自性本自清净，菩提本无树，即心即佛",
+    "category": "eastern",
+    "tradition": "chinese",
+    "era": "隋唐"
+  },
+  {
+    "id": "han_yu",
+    "name": "韩愈",
+    "name_en": "Han Yu",
+    "lifespan": "768年—824年",
+    "origin": "中国·唐代·河阳",
+    "school": "儒家",
+    "key_works": [
+      "《原道》",
+      "《师说》"
+    ],
+    "core_ideas": "复兴儒学，排佛老，道统论，性三品说",
+    "category": "eastern",
+    "tradition": "chinese",
+    "era": "隋唐"
+  },
+  {
+    "id": "zhu_xi",
+    "name": "朱熹",
+    "name_en": "Zhu Xi",
+    "lifespan": "1130年—1200年",
+    "origin": "中国·南宋·徽州",
+    "school": "理学/闽学",
+    "key_works": [
+      "《四书章句集注》",
+      "《近思录》"
+    ],
+    "core_ideas": "理一分殊，性即理，格物致知，理气论，道统",
+    "category": "eastern",
+    "tradition": "chinese",
+    "era": "宋明"
+  },
+  {
+    "id": "wang_yangming",
+    "name": "王阳明",
+    "name_en": "Wang Yangming",
+    "lifespan": "1472年—1529年",
+    "origin": "中国·明代·余姚",
+    "school": "心学",
+    "key_works": [
+      "《传习录》",
+      "《大学问》"
+    ],
+    "core_ideas": "心即理，知行合一，致良知，四句教",
+    "category": "eastern",
+    "tradition": "chinese",
+    "era": "宋明"
+  },
+  {
+    "id": "wang_fuzhi",
+    "name": "王夫之",
+    "name_en": "Wang Fuzhi",
+    "lifespan": "1619年—1692年",
+    "origin": "中国·明末清初·衡阳",
+    "school": "气学/船山学",
+    "key_works": [
+      "《周易外传》",
+      "《读通鉴论》",
+      "《张子正蒙注》"
+    ],
+    "core_ideas": "气一元论，理气相依，知行相资，理在气中",
+    "category": "eastern",
+    "tradition": "chinese",
+    "era": "明清之际"
+  },
+  {
+    "id": "huang_zongxi",
+    "name": "黄宗羲",
+    "name_en": "Huang Zongxi",
+    "lifespan": "1610年—1695年",
+    "origin": "中国·明末清初·余姚",
+    "school": "经世学/梨洲学",
+    "key_works": [
+      "《明夷待访录》",
+      "《明儒学案》"
+    ],
+    "core_ideas": "天下为主君为客，批判君主专制，工商皆本，经世致用",
+    "category": "eastern",
+    "tradition": "chinese",
+    "era": "明清之际"
+  },
+  {
+    "id": "dai_zhen",
+    "name": "戴震",
+    "name_en": "Dai Zhen",
+    "lifespan": "1724年—1777年",
+    "origin": "中国·清代·休宁",
+    "school": "考据学/皖学",
+    "key_works": [
+      "《孟子字义疏证》",
+      "《原善》"
+    ],
+    "core_ideas": "理存于欲，以情絜情，血气心知，批判存天理灭人欲",
+    "category": "eastern",
+    "tradition": "chinese",
+    "era": "清代"
+  },
+  {
+    "id": "kang_youwei",
+    "name": "康有为",
+    "name_en": "Kang Youwei",
+    "lifespan": "1858年—1927年",
+    "origin": "中国·近代·南海",
+    "school": "今文经学/维新",
+    "key_works": [
+      "《新学伪经考》",
+      "《孔子改制考》",
+      "《大同书》"
+    ],
+    "core_ideas": "托古改制，大同理想，三世进化说，君主立宪",
+    "category": "eastern",
+    "tradition": "chinese",
+    "era": "近代"
+  },
+  {
+    "id": "liang_qichao",
+    "name": "梁启超",
+    "name_en": "Liang Qichao",
+    "lifespan": "1873年—1929年",
+    "origin": "中国·近代·新会",
+    "school": "维新/启蒙",
+    "key_works": [
+      "《饮冰室合集》",
+      "《清代学术概论》"
+    ],
+    "core_ideas": "新民说，少年中国，思想启蒙，批判专制提倡民权",
+    "category": "eastern",
+    "tradition": "chinese",
+    "era": "近代"
+  },
+  {
+    "id": "feng_youlan",
+    "name": "冯友兰",
+    "name_en": "Feng Youlan",
+    "lifespan": "1895年—1990年",
+    "origin": "中国·现代·南阳",
+    "school": "新理学",
+    "key_works": [
+      "《中国哲学史》",
+      "《新理学》",
+      "《中国哲学史新编》"
+    ],
+    "core_ideas": "新理学体系，理在事先，境界说（自然、功利、道德、天地）",
+    "category": "eastern",
+    "tradition": "chinese",
+    "era": "现代"
+  },
+  {
+    "id": "buddha",
+    "name": "释迦牟尼",
+    "name_en": "Siddhartha Gautama (Buddha)",
+    "lifespan": "约前563年—前483年",
+    "origin": "古印度·迦毗罗卫",
+    "school": "佛教",
+    "key_works": [
+      "经律论三藏（佛典结集）"
+    ],
+    "core_ideas": "四圣谛，八正道，缘起性空，涅槃寂静，无我",
+    "category": "eastern",
+    "tradition": "indian",
+    "era": "古代"
+  },
+  {
+    "id": "nagarjuna",
+    "name": "龙树",
+    "name_en": "Nagarjuna",
+    "lifespan": "约150年—250年",
+    "origin": "古印度·南天竺",
+    "school": "中观派/大乘佛教",
+    "key_works": [
+      "《中论》",
+      "《大智度论》"
+    ],
+    "core_ideas": "缘起性空，八不中道，破而不立，二谛（世俗谛与胜义谛）",
+    "category": "eastern",
+    "tradition": "indian",
+    "era": "古代"
+  },
+  {
+    "id": "asanga",
+    "name": "无著",
+    "name_en": "Asanga",
+    "lifespan": "约4世纪",
+    "origin": "古印度·犍陀罗",
+    "school": "瑜伽行派/大乘佛教",
+    "key_works": [
+      "《瑜伽师地论》",
+      "《摄大乘论》"
+    ],
+    "core_ideas": "唯识无境，转识成智，三性（遍计所执、依他起、圆成实）",
+    "category": "eastern",
+    "tradition": "indian",
+    "era": "古代"
+  },
+  {
+    "id": "vasubandhu",
+    "name": "世亲",
+    "name_en": "Vasubandhu",
+    "lifespan": "约4—5世纪",
+    "origin": "古印度·犍陀罗",
+    "school": "瑜伽行派/大乘佛教",
+    "key_works": [
+      "《俱舍论》",
+      "《唯识三十颂》"
+    ],
+    "core_ideas": "唯识学说体系化，阿赖耶识，种子说",
+    "category": "eastern",
+    "tradition": "indian",
+    "era": "古代"
+  },
+  {
+    "id": "dignaga",
+    "name": "陈那",
+    "name_en": "Dignaga",
+    "lifespan": "约480年—540年",
+    "origin": "古印度·南印度",
+    "school": "佛教因明学",
+    "key_works": [
+      "《集量论》",
+      "《因明入正理论》"
+    ],
+    "core_ideas": "新因明学，现量与比量，三支作法，唯识量论",
+    "category": "eastern",
+    "tradition": "indian",
+    "era": "古代"
+  },
+  {
+    "id": "shankara",
+    "name": "商羯罗",
+    "name_en": "Adi Shankara",
+    "lifespan": "约788年—820年",
+    "origin": "古印度·喀拉拉",
+    "school": "吠檀多/不二论",
+    "key_works": [
+      "《梵经注》",
+      "《自我知》"
+    ],
+    "core_ideas": "梵我同一，摩耶（幻象），不二一元论，解脱即证悟真我",
+    "category": "eastern",
+    "tradition": "indian",
+    "era": "中世纪"
+  },
+  {
+    "id": "ramanuja",
+    "name": "罗摩奴阇",
+    "name_en": "Ramanuja",
+    "lifespan": "1017年—1137年",
+    "origin": "古印度·泰米尔纳德",
+    "school": "吠檀多/限定不二论",
+    "key_works": [
+      "《梵经注》",
+      "《圣典要旨》"
+    ],
+    "core_ideas": "限定不二论，梵、我、世界皆为真实，虔信（bhakti）解脱",
+    "category": "eastern",
+    "tradition": "indian",
+    "era": "中世纪"
+  },
+  {
+    "id": "patanjali",
+    "name": "帕坦伽利",
+    "name_en": "Patanjali",
+    "lifespan": "约前2世纪",
+    "origin": "古印度",
+    "school": "瑜伽派",
+    "key_works": [
+      "《瑜伽经》"
+    ],
+    "core_ideas": "瑜伽八支，心识止息，三德（萨埵、罗阇、答摩），解脱",
+    "category": "eastern",
+    "tradition": "indian",
+    "era": "古代"
+  },
+  {
+    "id": "madhva",
+    "name": "摩陀婆",
+    "name_en": "Madhvacharya",
+    "lifespan": "1238年—1317年",
+    "origin": "古印度·卡纳塔克",
+    "school": "吠檀多/二元论",
+    "key_works": [
+      "《梵经注》"
+    ],
+    "core_ideas": "二元实在论，梵与个体灵魂根本不同，虔信至上神",
+    "category": "eastern",
+    "tradition": "indian",
+    "era": "中世纪"
+  },
+  {
+    "id": "gandhi",
+    "name": "甘地",
+    "name_en": "Mahatma Gandhi",
+    "lifespan": "1869年—1948年",
+    "origin": "印度·古吉拉特",
+    "school": "政治哲学/非暴力主义",
+    "key_works": [
+      "《自传：我体验真理的故事》",
+      "《印度自治》"
+    ],
+    "core_ideas": "非暴力不合作（Satyagraha），真理坚固，简朴生活，宗教宽容",
+    "category": "eastern",
+    "tradition": "indian",
+    "era": "现代"
+  },
+  {
+    "id": "tagore",
+    "name": "泰戈尔",
+    "name_en": "Rabindranath Tagore",
+    "lifespan": "1861年—1941年",
+    "origin": "印度·加尔各答",
+    "school": "人文主义/神秘主义",
+    "key_works": [
+      "《吉檀迦利》",
+      "《人生的亲证》"
+    ],
+    "core_ideas": "人的宗教，宇宙统一于无限人格，教育即自由，民族与世界主义",
+    "category": "eastern",
+    "tradition": "indian",
+    "era": "现代"
+  },
+  {
+    "id": "aurobindo",
+    "name": "奥罗宾多",
+    "name_en": "Sri Aurobindo",
+    "lifespan": "1872年—1950年",
+    "origin": "印度·加尔各答",
+    "school": "整体瑜伽/精神进化论",
+    "key_works": [
+      "《神圣人生论》",
+      "《萨维特里》"
+    ],
+    "core_ideas": "超心智进化，精神转化，整体瑜伽，从物质到精神的上升",
+    "category": "eastern",
+    "tradition": "indian",
+    "era": "现代"
+  },
+  {
+    "id": "nishida_kitaro",
+    "name": "西田几多郎",
+    "name_en": "Nishida Kitaro",
+    "lifespan": "1870年—1945年",
+    "origin": "日本·石川",
+    "school": "京都学派",
+    "key_works": [
+      "《善的研究》",
+      "《自觉中的直观与反省》",
+      "《无的自觉限定》"
+    ],
+    "core_ideas": "纯粹经验，场所逻辑，无的哲学，绝对矛盾的自我同一",
+    "category": "eastern",
+    "tradition": "japanese",
+    "era": "现代"
+  },
+  {
+    "id": "tanabe_hajime",
+    "name": "田边元",
+    "name_en": "Tanabe Hajime",
+    "lifespan": "1885年—1962年",
+    "origin": "日本·东京",
+    "school": "京都学派",
+    "key_works": [
+      "《作为忏悔道的哲学》",
+      "《种的逻辑》"
+    ],
+    "core_ideas": "种的逻辑，忏悔道，绝对媒介，国家理性批判",
+    "category": "eastern",
+    "tradition": "japanese",
+    "era": "现代"
+  },
+  {
+    "id": "watsuji_tetsuro",
+    "name": "和辻哲郎",
+    "name_en": "Watsuji Tetsuro",
+    "lifespan": "1889年—1960年",
+    "origin": "日本·兵库",
+    "school": "伦理学/风土论",
+    "key_works": [
+      "《风土》",
+      "《伦理学》"
+    ],
+    "core_ideas": "间柄伦理学，风土论（气候与文化的关联），虚无与风土",
+    "category": "eastern",
+    "tradition": "japanese",
+    "era": "现代"
+  },
+  {
+    "id": "kuki_shuzo",
+    "name": "九鬼周造",
+    "name_en": "Kuki Shuzo",
+    "lifespan": "1888年—1941年",
+    "origin": "日本·东京",
+    "school": "存在论/美学",
+    "key_works": [
+      "《偶然性的问题》",
+      "《粹的构造》"
+    ],
+    "core_ideas": "偶然性的哲学，粹（iki）的结构，东洋的时间观念",
+    "category": "eastern",
+    "tradition": "japanese",
+    "era": "现代"
+  },
+  {
+    "id": "suzuki_daisetz",
+    "name": "铃木大拙",
+    "name_en": "D.T. Suzuki",
+    "lifespan": "1870年—1966年",
+    "origin": "日本·石川",
+    "school": "禅学/佛教哲学",
+    "key_works": [
+      "《禅与日本文化》",
+      "《通向禅学之路》"
+    ],
+    "core_ideas": "禅的西方诠释，顿悟与渐修，无心，禅与无意识",
+    "category": "eastern",
+    "tradition": "japanese",
+    "era": "现代"
+  },
+  {
+    "id": "al_kindi",
+    "name": "肯迪",
+    "name_en": "Al-Kindi",
+    "lifespan": "约801年—873年",
+    "origin": "阿拉伯·巴士拉",
+    "school": "伊斯兰哲学/逍遥派",
+    "key_works": [
+      "《论第一哲学》",
+      "《论理智》"
+    ],
+    "core_ideas": "哲学与神学调和，理智等级说，第一因即真主，古希腊哲学阿拉伯化",
+    "category": "eastern",
+    "tradition": "islamic",
+    "era": "中世纪"
+  },
+  {
+    "id": "al_farabi",
+    "name": "法拉比",
+    "name_en": "Al-Farabi",
+    "lifespan": "约872年—950年",
+    "origin": "中亚·法拉布",
+    "school": "伊斯兰哲学/逍遥派",
+    "key_works": [
+      "《第二导师》",
+      "《政治制度》",
+      "《论理智》"
+    ],
+    "core_ideas": "第二导师，理想城邦，理智与预言的对应，音乐哲学",
+    "category": "eastern",
+    "tradition": "islamic",
+    "era": "中世纪"
+  },
+  {
+    "id": "ibn_sina",
+    "name": "伊本·西那",
+    "name_en": "Ibn Sina (Avicenna)",
+    "lifespan": "980年—1037年",
+    "origin": "波斯·布哈拉",
+    "school": "伊斯兰哲学/逍遥派",
+    "key_works": [
+      "《治疗论》",
+      "《形而上学》",
+      "《论灵魂》"
+    ],
+    "core_ideas": "存在与本质区分，必然存在者， flying man论证，亚里士多德哲学伊斯兰化",
+    "category": "eastern",
+    "tradition": "islamic",
+    "era": "中世纪"
+  },
+  {
+    "id": "al_ghazali",
+    "name": "安萨里",
+    "name_en": "Al-Ghazali",
+    "lifespan": "1058年—1111年",
+    "origin": "波斯·图斯",
+    "school": "伊斯兰神学/苏菲主义",
+    "key_works": [
+      "《哲学家的矛盾》",
+      "《迷途指津》",
+      "《圣学复苏》"
+    ],
+    "core_ideas": "批判哲学家的形而上学，因果论归于真主意志，苏菲神秘主义，怀疑论方法",
+    "category": "eastern",
+    "tradition": "islamic",
+    "era": "中世纪"
+  },
+  {
+    "id": "ibn_rushd",
+    "name": "伊本·鲁世德",
+    "name_en": "Ibn Rushd (Averroes)",
+    "lifespan": "1126年—1198年",
+    "origin": "西班牙·科尔多瓦",
+    "school": "伊斯兰哲学/逍遥派",
+    "key_works": [
+      "《矛盾的矛盾》",
+      "《哲学与宗教的和谐》"
+    ],
+    "core_ideas": "双重真理说（哲学真理与宗教真理并行），理性与信仰的调和，亚里士多德注释",
+    "category": "eastern",
+    "tradition": "islamic",
+    "era": "中世纪"
+  },
+  {
+    "id": "ibn_arabi",
+    "name": "伊本·阿拉比",
+    "name_en": "Ibn Arabi",
+    "lifespan": "1165年—1240年",
+    "origin": "西班牙·穆尔西亚",
+    "school": "苏菲主义/一元论",
+    "key_works": [
+      "《麦加的启示》",
+      "《智慧之玺》"
+    ],
+    "core_ideas": "存在的单一性（wahdat al-wujud），完人（al-insan al-kamil），神圣自显",
+    "category": "eastern",
+    "tradition": "islamic",
+    "era": "中世纪"
+  },
+  {
+    "id": "maimonides",
+    "name": "迈蒙尼德",
+    "name_en": "Moses Maimonides",
+    "lifespan": "1135年—1204年",
+    "origin": "西班牙·科尔多瓦/埃及·开罗",
+    "school": "犹太哲学/新亚里士多德主义",
+    "key_works": [
+      "《迷途指津》",
+      "《密释纳注》"
+    ],
+    "core_ideas": "否定神学，理性与启示的调和，十三信条，亚里士多德哲学犹太化",
+    "category": "eastern",
+    "tradition": "jewish",
+    "era": "中世纪"
+  },
+  {
+    "id": "buber",
+    "name": "马丁·布伯",
+    "name_en": "Martin Buber",
+    "lifespan": "1878年—1965年",
+    "origin": "奥地利·维也纳",
+    "school": "存在主义/对话哲学",
+    "key_works": [
+      "《我与你》",
+      "《人的问题》"
+    ],
+    "core_ideas": "我-你关系，我-它关系，对话哲学，相遇伦理学",
+    "category": "eastern",
+    "tradition": "jewish",
+    "era": "现代"
+  },
+  {
+    "id": "thales",
+    "name": "泰勒斯",
+    "name_en": "Thales",
+    "lifespan": "约前624年—约前546年",
+    "origin": "古希腊·米利都",
+    "school": "米利都学派",
+    "key_works": [
+      "无传世著作"
+    ],
+    "core_ideas": "水是万物的本原（arche），理性解释自然，预测日食",
+    "category": "western",
+    "tradition": "greek",
+    "era": "古希腊"
+  },
+  {
+    "id": "pythagoras",
+    "name": "毕达哥拉斯",
+    "name_en": "Pythagoras",
+    "lifespan": "约前570年—约前495年",
+    "origin": "古希腊·萨摩斯",
+    "school": "毕达哥拉斯学派",
+    "key_works": [
+      "无传世著作"
+    ],
+    "core_ideas": "数是万物的本原，灵魂转世，和谐宇宙，数学与哲学统一",
+    "category": "western",
+    "tradition": "greek",
+    "era": "古希腊"
+  },
+  {
+    "id": "heraclitus",
+    "name": "赫拉克利特",
+    "name_en": "Heraclitus",
+    "lifespan": "约前535年—约前475年",
+    "origin": "古希腊·以弗所",
+    "school": "爱菲斯学派",
+    "key_works": [
+      "《论自然》（残篇）"
+    ],
+    "core_ideas": "万物皆流，人不能两次踏入同一条河流，逻各斯，火为本原，对立统一",
+    "category": "western",
+    "tradition": "greek",
+    "era": "古希腊"
+  },
+  {
+    "id": "parmenides",
+    "name": "巴门尼德",
+    "name_en": "Parmenides",
+    "lifespan": "约前515年—约前450年",
+    "origin": "古希腊·埃利亚",
+    "school": "埃利亚学派",
+    "key_works": [
+      "《论自然》（残篇）"
+    ],
+    "core_ideas": "存在者存在，非存在者不存在，思维与存在同一，存在是永恒的、不动的、单一的",
+    "category": "western",
+    "tradition": "greek",
+    "era": "古希腊"
+  },
+  {
+    "id": "socrates",
+    "name": "苏格拉底",
+    "name_en": "Socrates",
+    "lifespan": "前470年—前399年",
+    "origin": "古希腊·雅典",
+    "school": "苏格拉底学派",
+    "key_works": [
+      "无传世著作（由柏拉图记录）"
+    ],
+    "core_ideas": "认识你自己，美德即知识，苏格拉底诘问法，灵魂不朽，德性即知识",
+    "category": "western",
+    "tradition": "greek",
+    "era": "古希腊"
+  },
+  {
+    "id": "plato",
+    "name": "柏拉图",
+    "name_en": "Plato",
+    "lifespan": "前428/427年—前348/347年",
+    "origin": "古希腊·雅典",
+    "school": "柏拉图主义",
+    "key_works": [
+      "《理想国》",
+      "《斐多篇》",
+      "《会饮篇》",
+      "《蒂迈欧篇》"
+    ],
+    "core_ideas": "理念论，回忆说，灵魂三分说，理想国，哲学家王",
+    "category": "western",
+    "tradition": "greek",
+    "era": "古希腊"
+  },
+  {
+    "id": "aristotle",
+    "name": "亚里士多德",
+    "name_en": "Aristotle",
+    "lifespan": "前384年—前322年",
+    "origin": "古希腊·斯塔吉拉",
+    "school": "逍遥学派",
+    "key_works": [
+      "《形而上学》",
+      "《尼各马可伦理学》",
+      "《政治学》",
+      "《工具论》"
+    ],
+    "core_ideas": "实体论，四因说，中庸之道，逻辑学体系，目的论，潜能与现实",
+    "category": "western",
+    "tradition": "greek",
+    "era": "古希腊"
+  },
+  {
+    "id": "epicurus",
+    "name": "伊壁鸠鲁",
+    "name_en": "Epicurus",
+    "lifespan": "前341年—前270年",
+    "origin": "古希腊·萨摩斯",
+    "school": "伊壁鸠鲁学派",
+    "key_works": [
+      "《致希罗多德的信》",
+      "《致美诺寇的信》",
+      "《梵蒂冈名言集》"
+    ],
+    "core_ideas": "快乐主义，原子论，无神论倾向，宁静（ataraxia）为最高善",
+    "category": "western",
+    "tradition": "greek",
+    "era": "希腊化"
+  },
+  {
+    "id": "zeno_stoic",
+    "name": "芝诺（斯多葛）",
+    "name_en": "Zeno of Citium",
+    "lifespan": "约前334年—约前262年",
+    "origin": "塞浦路斯·基提翁",
+    "school": "斯多葛学派",
+    "key_works": [
+      "无完整传世著作"
+    ],
+    "core_ideas": "顺应自然而活，德性即幸福，世界公民，理性控制激情，宿命论",
+    "category": "western",
+    "tradition": "greek",
+    "era": "希腊化"
+  },
+  {
+    "id": "plotinus",
+    "name": "普罗提诺",
+    "name_en": "Plotinus",
+    "lifespan": "约205年—270年",
+    "origin": "罗马帝国·埃及",
+    "school": "新柏拉图主义",
+    "key_works": [
+      "《九章集》"
+    ],
+    "core_ideas": "太一流溢说，灵魂下降与上升，一高于存在，神秘合一体验",
+    "category": "western",
+    "tradition": "greek",
+    "era": "希腊化"
+  },
+  {
+    "id": "augustine",
+    "name": "奥古斯丁",
+    "name_en": "Augustine of Hippo",
+    "lifespan": "354年—430年",
+    "origin": "罗马帝国·北非·希波",
+    "school": "教父哲学/基督教",
+    "key_works": [
+      "《忏悔录》",
+      "《上帝之城》",
+      "《论三位一体》"
+    ],
+    "core_ideas": "上帝创世论，原罪与恩典，时间的主观性，信仰先于理解，神正论",
+    "category": "western",
+    "tradition": "christian",
+    "era": "中世纪"
+  },
+  {
+    "id": "boethius",
+    "name": "波爱修斯",
+    "name_en": "Boethius",
+    "lifespan": "约480年—524年",
+    "origin": "罗马帝国·罗马",
+    "school": "新柏拉图主义/基督教",
+    "key_works": [
+      "《哲学的慰藉》"
+    ],
+    "core_ideas": "永恒与时间的区分，命运与神意，共相问题，自由意志",
+    "category": "western",
+    "tradition": "christian",
+    "era": "中世纪"
+  },
+  {
+    "id": "aquinas",
+    "name": "托马斯·阿奎那",
+    "name_en": "Thomas Aquinas",
+    "lifespan": "1225年—1274年",
+    "origin": "意大利·那不勒斯",
+    "school": "经院哲学/托马斯主义",
+    "key_works": [
+      "《神学大全》",
+      "《反异教大全》"
+    ],
+    "core_ideas": "五路证明上帝存在，自然法，理性与信仰的调和，本质与存在区分",
+    "category": "western",
+    "tradition": "christian",
+    "era": "中世纪"
+  },
+  {
+    "id": "machiavelli",
+    "name": "马基雅维利",
+    "name_en": "Niccolò Machiavelli",
+    "lifespan": "1469年—1527年",
+    "origin": "意大利·佛罗伦萨",
+    "school": "政治哲学",
+    "key_works": [
+      "《君主论》",
+      "《论李维》"
+    ],
+    "core_ideas": "政治与道德分离，国家理性（raison d'état），virtù与fortuna，共和主义",
+    "category": "western",
+    "tradition": "renaissance",
+    "era": "文艺复兴"
+  },
+  {
+    "id": "bacon",
+    "name": "弗兰西斯·培根",
+    "name_en": "Francis Bacon",
+    "lifespan": "1561年—1626年",
+    "origin": "英国·伦敦",
+    "school": "经验主义",
+    "key_works": [
+      "《新工具》",
+      "《论学术的进展》",
+      "《新大西岛》"
+    ],
+    "core_ideas": "知识就是力量，归纳法，四假象说，经验主义方法论",
+    "category": "western",
+    "tradition": "british",
+    "era": "近代"
+  },
+  {
+    "id": "hobbes",
+    "name": "霍布斯",
+    "name_en": "Thomas Hobbes",
+    "lifespan": "1588年—1679年",
+    "origin": "英国·威尔特郡",
+    "school": "社会契约论",
+    "key_works": [
+      "《利维坦》",
+      "《论公民》"
+    ],
+    "core_ideas": "自然状态是战争，社会契约，主权绝对，国家是人工怪物（利维坦）",
+    "category": "western",
+    "tradition": "british",
+    "era": "近代"
+  },
+  {
+    "id": "descartes",
+    "name": "笛卡尔",
+    "name_en": "René Descartes",
+    "lifespan": "1596年—1650年",
+    "origin": "法国·图赖讷",
+    "school": "理性主义",
+    "key_works": [
+      "《第一哲学沉思集》",
+      "《谈谈方法》",
+      "《哲学原理》"
+    ],
+    "core_ideas": "我思故我在，心物二元论，普遍怀疑，理性主义方法，天赋观念",
+    "category": "western",
+    "tradition": "continental",
+    "era": "近代"
+  },
+  {
+    "id": "spinoza",
+    "name": "斯宾诺莎",
+    "name_en": "Baruch Spinoza",
+    "lifespan": "1632年—1677年",
+    "origin": "荷兰·阿姆斯特丹",
+    "school": "理性主义",
+    "key_works": [
+      "《伦理学》",
+      "《神学政治论》",
+      "《知性改进论》"
+    ],
+    "core_ideas": "实体一元论，神即自然，自由是对必然的认识，情感几何学",
+    "category": "western",
+    "tradition": "continental",
+    "era": "近代"
+  },
+  {
+    "id": "leibniz",
+    "name": "莱布尼茨",
+    "name_en": "Gottfried Wilhelm Leibniz",
+    "lifespan": "1646年—1716年",
+    "origin": "德国·莱比锡",
+    "school": "理性主义",
+    "key_works": [
+      "《单子论》",
+      "《神正论》",
+      "《人类理智新论》"
+    ],
+    "core_ideas": "单子论，预定和谐，充足理由律，可能世界理论，微积分",
+    "category": "western",
+    "tradition": "continental",
+    "era": "近代"
+  },
+  {
+    "id": "locke",
+    "name": "洛克",
+    "name_en": "John Locke",
+    "lifespan": "1632年—1704年",
+    "origin": "英国·萨默塞特",
+    "school": "经验主义",
+    "key_works": [
+      "《人类理解论》",
+      "《政府论》"
+    ],
+    "core_ideas": "白板说，观念来自经验，自然权利（生命、自由、财产），有限政府",
+    "category": "western",
+    "tradition": "british",
+    "era": "近代"
+  },
+  {
+    "id": "berkeley",
+    "name": "贝克莱",
+    "name_en": "George Berkeley",
+    "lifespan": "1685年—1753年",
+    "origin": "爱尔兰·基尔肯尼",
+    "school": "经验主义/唯心论",
+    "key_works": [
+      "《人类知识原理》",
+      "《海拉斯与斐洛诺斯对话》"
+    ],
+    "core_ideas": "存在就是被感知，精神实体，否定物质实体，上帝是终极感知者",
+    "category": "western",
+    "tradition": "british",
+    "era": "近代"
+  },
+  {
+    "id": "hume",
+    "name": "休谟",
+    "name_en": "David Hume",
+    "lifespan": "1711年—1776年",
+    "origin": "苏格兰·爱丁堡",
+    "school": "经验主义/怀疑论",
+    "key_works": [
+      "《人性论》",
+      "《人类理智研究》",
+      "《自然宗教对话录》"
+    ],
+    "core_ideas": "怀疑因果必然性，印象与观念，休谟问题（is-ought），不可知论",
+    "category": "western",
+    "tradition": "british",
+    "era": "近代"
+  },
+  {
+    "id": "montesquieu",
+    "name": "孟德斯鸠",
+    "name_en": "Montesquieu",
+    "lifespan": "1689年—1755年",
+    "origin": "法国·波尔多",
+    "school": "启蒙思想",
+    "key_works": [
+      "《论法的精神》",
+      "《波斯人信札》"
+    ],
+    "core_ideas": "三权分立，地理环境决定论，政体分类，法治与自由",
+    "category": "western",
+    "tradition": "continental",
+    "era": "启蒙"
+  },
+  {
+    "id": "voltaire",
+    "name": "伏尔泰",
+    "name_en": "Voltaire",
+    "lifespan": "1694年—1778年",
+    "origin": "法国·巴黎",
+    "school": "启蒙思想",
+    "key_works": [
+      "《哲学通信》",
+      "《老实人》",
+      "《哲学词典》"
+    ],
+    "core_ideas": "理性与自由，批判宗教狂热，自然神论，开明专制",
+    "category": "western",
+    "tradition": "continental",
+    "era": "启蒙"
+  },
+  {
+    "id": "rousseau",
+    "name": "卢梭",
+    "name_en": "Jean-Jacques Rousseau",
+    "lifespan": "1712年—1778年",
+    "origin": "瑞士·日内瓦",
+    "school": "启蒙思想",
+    "key_works": [
+      "《社会契约论》",
+      "《论人类不平等的起源》",
+      "《爱弥儿》"
+    ],
+    "core_ideas": "社会契约，人民主权，公意，自然状态善良，文明使人堕落，教育即自然",
+    "category": "western",
+    "tradition": "continental",
+    "era": "启蒙"
+  },
+  {
+    "id": "kant",
+    "name": "康德",
+    "name_en": "Immanuel Kant",
+    "lifespan": "1724年—1804年",
+    "origin": "德国·柯尼斯堡",
+    "school": "德国古典哲学/批判哲学",
+    "key_works": [
+      "《纯粹理性批判》",
+      "《实践理性批判》",
+      "《判断力批判》"
+    ],
+    "core_ideas": "哥白尼式革命，先验观念论，二律背反，绝对命令，人为自然立法",
+    "category": "western",
+    "tradition": "german",
+    "era": "德国古典"
+  },
+  {
+    "id": "fichte",
+    "name": "费希特",
+    "name_en": "Johann Fichte",
+    "lifespan": "1762年—1814年",
+    "origin": "德国·萨克森",
+    "school": "德国古典哲学",
+    "key_works": [
+      "《知识学》",
+      "《论学者的使命》"
+    ],
+    "core_ideas": "自我设定自我，自我设定非我，知识学体系，民族国家理论",
+    "category": "western",
+    "tradition": "german",
+    "era": "德国古典"
+  },
+  {
+    "id": "schelling",
+    "name": "谢林",
+    "name_en": "Friedrich Schelling",
+    "lifespan": "1775年—1854年",
+    "origin": "德国·符腾堡",
+    "school": "德国古典哲学/自然哲学",
+    "key_works": [
+      "《先验唯心论体系》",
+      "《论人类自由的本质》"
+    ],
+    "core_ideas": "自然哲学，同一哲学，绝对的自我直观，自由与恶的本体论",
+    "category": "western",
+    "tradition": "german",
+    "era": "德国古典"
+  },
+  {
+    "id": "hegel",
+    "name": "黑格尔",
+    "name_en": "Georg Wilhelm Friedrich Hegel",
+    "lifespan": "1770年—1831年",
+    "origin": "德国·斯图加特",
+    "school": "德国古典哲学/观念论",
+    "key_works": [
+      "《精神现象学》",
+      "《逻辑学》",
+      "《法哲学原理》"
+    ],
+    "core_ideas": "辩证法，绝对精神，主奴辩证法，历史即精神展开，存在即合理",
+    "category": "western",
+    "tradition": "german",
+    "era": "德国古典"
+  },
+  {
+    "id": "schopenhauer",
+    "name": "叔本华",
+    "name_en": "Arthur Schopenhauer",
+    "lifespan": "1788年—1860年",
+    "origin": "德国·但泽",
+    "school": "意志哲学",
+    "key_works": [
+      "《作为意志和表象的世界》",
+      "《伦理学的两个基本问题》"
+    ],
+    "core_ideas": "意志是世界的本质，生命意志的否定，悲观主义，审美救赎",
+    "category": "western",
+    "tradition": "german",
+    "era": "19世纪"
+  },
+  {
+    "id": "kierkegaard",
+    "name": "克尔凯郭尔",
+    "name_en": "Søren Kierkegaard",
+    "lifespan": "1813年—1855年",
+    "origin": "丹麦·哥本哈根",
+    "school": "存在主义先驱",
+    "key_works": [
+      "《或此或彼》",
+      "《恐惧与战栗》",
+      "《致死的疾病》"
+    ],
+    "core_ideas": "存在三阶段（审美、伦理、宗教），主观真理，焦虑与绝望，信仰飞跃",
+    "category": "western",
+    "tradition": "continental",
+    "era": "19世纪"
+  },
+  {
+    "id": "marx",
+    "name": "马克思",
+    "name_en": "Karl Marx",
+    "lifespan": "1818年—1883年",
+    "origin": "德国·特里尔",
+    "school": "马克思主义",
+    "key_works": [
+      "《资本论》",
+      "《共产党宣言》",
+      "《1844年经济学哲学手稿》"
+    ],
+    "core_ideas": "历史唯物主义，阶级斗争，剩余价值，异化劳动，实践哲学",
+    "category": "western",
+    "tradition": "german",
+    "era": "19世纪"
+  },
+  {
+    "id": "nietzsche",
+    "name": "尼采",
+    "name_en": "Friedrich Nietzsche",
+    "lifespan": "1844年—1900年",
+    "origin": "德国·洛肯",
+    "school": "生命哲学/非理性主义",
+    "key_works": [
+      "《查拉图斯特拉如是说》",
+      "《悲剧的诞生》",
+      "《权力意志》"
+    ],
+    "core_ideas": "上帝已死，权力意志，超人，永恒轮回，重估一切价值，主人道德与奴隶道德",
+    "category": "western",
+    "tradition": "german",
+    "era": "19世纪"
+  },
+  {
+    "id": "frege",
+    "name": "弗雷格",
+    "name_en": "Gottlob Frege",
+    "lifespan": "1848年—1925年",
+    "origin": "德国·维斯马",
+    "school": "分析哲学/逻辑主义",
+    "key_works": [
+      "《概念文字》",
+      "《算术基础》",
+      "《论意义和意谓》"
+    ],
+    "core_ideas": "现代数理逻辑奠基，意义与意谓区分，概念文字，逻辑主义纲领",
+    "category": "western",
+    "tradition": "analytic",
+    "era": "19-20世纪"
+  },
+  {
+    "id": "peirce",
+    "name": "皮尔士",
+    "name_en": "Charles Sanders Peirce",
+    "lifespan": "1839年—1914年",
+    "origin": "美国·马萨诸塞",
+    "school": "实用主义",
+    "key_works": [
+      "《如何使我们的观念清楚》",
+      "《信念的确定》"
+    ],
+    "core_ideas": "实用主义准则，符号学三分法（象似、指示、象征），溯因推理",
+    "category": "western",
+    "tradition": "american",
+    "era": "19-20世纪"
+  },
+  {
+    "id": "james",
+    "name": "威廉·詹姆斯",
+    "name_en": "William James",
+    "lifespan": "1842年—1910年",
+    "origin": "美国·纽约",
+    "school": "实用主义",
+    "key_works": [
+      "《实用主义》",
+      "《宗教经验之种种》",
+      "《心理学原理》"
+    ],
+    "core_ideas": "真理即有用，纯粹经验，意识流，实用主义方法",
+    "category": "western",
+    "tradition": "american",
+    "era": "19-20世纪"
+  },
+  {
+    "id": "dewey",
+    "name": "杜威",
+    "name_en": "John Dewey",
+    "lifespan": "1859年—1952年",
+    "origin": "美国·佛蒙特",
+    "school": "实用主义",
+    "key_works": [
+      "《民主与教育》",
+      "《哲学的改造》",
+      "《经验与自然》"
+    ],
+    "core_ideas": "经验即生活，教育即生长，民主参与，工具主义，改造哲学",
+    "category": "western",
+    "tradition": "american",
+    "era": "19-20世纪"
+  },
+  {
+    "id": "husserl",
+    "name": "胡塞尔",
+    "name_en": "Edmund Husserl",
+    "lifespan": "1859年—1938年",
+    "origin": "奥地利·摩拉维亚",
+    "school": "现象学",
+    "key_works": [
+      "《逻辑研究》",
+      "《观念》",
+      "《笛卡尔式的沉思》"
+    ],
+    "core_ideas": "回到事物本身，现象学还原，意向性，先验自我，生活世界",
+    "category": "western",
+    "tradition": "continental",
+    "era": "19-20世纪"
+  },
+  {
+    "id": "russell",
+    "name": "罗素",
+    "name_en": "Bertrand Russell",
+    "lifespan": "1872年—1970年",
+    "origin": "英国·威尔士",
+    "school": "分析哲学/逻辑原子论",
+    "key_works": [
+      "《数学原理》",
+      "《西方哲学史》",
+      "《论指称》"
+    ],
+    "core_ideas": "逻辑原子论，摹状词理论，类型论，分析哲学奠基，和平主义",
+    "category": "western",
+    "tradition": "analytic",
+    "era": "20世纪"
+  },
+  {
+    "id": "wittgenstein",
+    "name": "维特根斯坦",
+    "name_en": "Ludwig Wittgenstein",
+    "lifespan": "1889年—1951年",
+    "origin": "奥地利·维也纳",
+    "school": "分析哲学",
+    "key_works": [
+      "《逻辑哲学论》",
+      "《哲学研究》"
+    ],
+    "core_ideas": "语言图像论，不可说之物，语言游戏，家族相似，私人语言论证",
+    "category": "western",
+    "tradition": "analytic",
+    "era": "20世纪"
+  },
+  {
+    "id": "heidegger",
+    "name": "海德格尔",
+    "name_en": "Martin Heidegger",
+    "lifespan": "1889年—1976年",
+    "origin": "德国·梅斯基希",
+    "school": "存在主义/现象学",
+    "key_works": [
+      "《存在与时间》",
+      "《林中路》",
+      "《技术的追问》"
+    ],
+    "core_ideas": "存在论差异，此在（Dasein），向死而在，常人，技术座架",
+    "category": "western",
+    "tradition": "continental",
+    "era": "20世纪"
+  },
+  {
+    "id": "schlick",
+    "name": "石里克",
+    "name_en": "Moritz Schlick",
+    "lifespan": "1882年—1936年",
+    "origin": "奥地利·柏林",
+    "school": "逻辑实证主义",
+    "key_works": [
+      "《普通认识论》",
+      "《伦理学问题》"
+    ],
+    "core_ideas": "证实原则，拒斥形而上学，逻辑分析，维也纳学派领袖",
+    "category": "western",
+    "tradition": "analytic",
+    "era": "20世纪"
+  },
+  {
+    "id": "sartre",
+    "name": "萨特",
+    "name_en": "Jean-Paul Sartre",
+    "lifespan": "1905年—1980年",
+    "origin": "法国·巴黎",
+    "school": "存在主义",
+    "key_works": [
+      "《存在与虚无》",
+      "《恶心》",
+      "《辩证理性批判》"
+    ],
+    "core_ideas": "存在先于本质，自由即责任，自欺，他人即地狱，介入文学",
+    "category": "western",
+    "tradition": "continental",
+    "era": "20世纪"
+  },
+  {
+    "id": "camus",
+    "name": "加缪",
+    "name_en": "Albert Camus",
+    "lifespan": "1913年—1960年",
+    "origin": "法国·阿尔及利亚",
+    "school": "存在主义/荒诞哲学",
+    "key_works": [
+      "《西西弗神话》",
+      "《局外人》",
+      "《反抗者》"
+    ],
+    "core_ideas": "荒诞哲学，反抗，西西弗式幸福，既否认上帝也否认历史理性",
+    "category": "western",
+    "tradition": "continental",
+    "era": "20世纪"
+  },
+  {
+    "id": "popper",
+    "name": "波普尔",
+    "name_en": "Karl Popper",
+    "lifespan": "1902年—1994年",
+    "origin": "奥地利·维也纳",
+    "school": "批判理性主义",
+    "key_works": [
+      "《科学发现的逻辑》",
+      "《开放社会及其敌人》",
+      "《历史决定论的贫困》"
+    ],
+    "core_ideas": "证伪主义，批判理性主义，开放社会，历史决定论批判",
+    "category": "western",
+    "tradition": "analytic",
+    "era": "20世纪"
+  },
+  {
+    "id": "adorno",
+    "name": "阿多诺",
+    "name_en": "Theodor Adorno",
+    "lifespan": "1903年—1969年",
+    "origin": "德国·法兰克福",
+    "school": "法兰克福学派",
+    "key_works": [
+      "《否定的辩证法》",
+      "《启蒙辩证法》",
+      "《最低限度的道德》"
+    ],
+    "core_ideas": "否定的辩证法，文化工业批判，奥斯维辛之后写诗是野蛮的，非同一性",
+    "category": "western",
+    "tradition": "continental",
+    "era": "20世纪"
+  },
+  {
+    "id": "marcuse",
+    "name": "马尔库塞",
+    "name_en": "Herbert Marcuse",
+    "lifespan": "1898年—1979年",
+    "origin": "德国·柏林",
+    "school": "法兰克福学派",
+    "key_works": [
+      "《单向度的人》",
+      "《爱欲与文明》",
+      "《理性与革命》"
+    ],
+    "core_ideas": "单向度社会，爱欲解放，技术理性批判，大拒绝，审美之维",
+    "category": "western",
+    "tradition": "continental",
+    "era": "20世纪"
+  },
+  {
+    "id": "habermas",
+    "name": "哈贝马斯",
+    "name_en": "Jürgen Habermas",
+    "lifespan": "1929年—",
+    "origin": "德国·杜塞尔多夫",
+    "school": "法兰克福学派/交往理论",
+    "key_works": [
+      "《交往行为理论》",
+      "《公共领域的结构转型》",
+      "《现代性的哲学话语》"
+    ],
+    "core_ideas": "交往理性，公共领域，商谈伦理学，系统对生活世界的殖民，现代性未竟",
+    "category": "western",
+    "tradition": "continental",
+    "era": "20-21世纪"
+  },
+  {
+    "id": "foucault",
+    "name": "福柯",
+    "name_en": "Michel Foucault",
+    "lifespan": "1926年—1984年",
+    "origin": "法国·普瓦捷",
+    "school": "后现代/知识考古学",
+    "key_works": [
+      "《规训与惩罚》",
+      "《词与物》",
+      "《性史》",
+      "《疯癫与文明》"
+    ],
+    "core_ideas": "权力/知识，规训社会，知识考古学，谱系学，主体解构",
+    "category": "western",
+    "tradition": "continental",
+    "era": "20世纪"
+  },
+  {
+    "id": "derrida",
+    "name": "德里达",
+    "name_en": "Jacques Derrida",
+    "lifespan": "1930年—2004年",
+    "origin": "法国·阿尔及利亚",
+    "school": "解构主义",
+    "key_works": [
+      "《论文字学》",
+      "《声音与现象》",
+      "《书写与差异》"
+    ],
+    "core_ideas": "解构，延异（différance），逻各斯中心主义批判，踪迹，Pharmakon",
+    "category": "western",
+    "tradition": "continental",
+    "era": "20世纪"
+  },
+  {
+    "id": "rawls",
+    "name": "罗尔斯",
+    "name_en": "John Rawls",
+    "lifespan": "1921年—2002年",
+    "origin": "美国·巴尔的摩",
+    "school": "政治哲学/自由主义",
+    "key_works": [
+      "《正义论》",
+      "《政治自由主义》",
+      "《万民法》"
+    ],
+    "core_ideas": "正义即公平，原初状态与无知之幕，差异原则，公共理性",
+    "category": "western",
+    "tradition": "analytic",
+    "era": "20世纪"
+  },
+  {
+    "id": "quine",
+    "name": "蒯因",
+    "name_en": "Willard Van Orman Quine",
+    "lifespan": "1908年—2000年",
+    "origin": "美国·俄亥俄",
+    "school": "分析哲学",
+    "key_works": [
+      "《语词与对象》",
+      "《从逻辑的观点看》"
+    ],
+    "core_ideas": "整体主义知识论，本体论承诺，译不准定理，自然化认识论",
+    "category": "western",
+    "tradition": "analytic",
+    "era": "20世纪"
+  },
+  {
+    "id": "singer",
+    "name": "彼得·辛格",
+    "name_en": "Peter Singer",
+    "lifespan": "1946年—",
+    "origin": "澳大利亚·墨尔本",
+    "school": "应用伦理学/功利主义",
+    "key_works": [
+      "《动物解放》",
+      "《实用伦理学》",
+      "《你能拯救的生命》"
+    ],
+    "core_ideas": "物种主义批判，有效利他主义，功利主义应用，全球贫困伦理",
+    "category": "western",
+    "tradition": "analytic",
+    "era": "20-21世纪"
+  },
+  {
+    "id": "nussbaum",
+    "name": "玛莎·努斯鲍姆",
+    "name_en": "Martha Nussbaum",
+    "lifespan": "1947年—",
+    "origin": "美国·纽约",
+    "school": "能力进路/政治哲学",
+    "key_works": [
+      "《善的脆弱性》",
+      "《正义的前沿》",
+      "《创造能力》"
+    ],
+    "core_ideas": "能力进路，情感与理性，善的脆弱性，世界主义正义",
+    "category": "western",
+    "tradition": "analytic",
+    "era": "20-21世纪"
+  },
+  {
+    "id": "zizek",
+    "name": "齐泽克",
+    "name_en": "Slavoj Žižek",
+    "lifespan": "1949年—",
+    "origin": "斯洛文尼亚·卢布尔雅那",
+    "school": "精神分析/马克思主义",
+    "key_works": [
+      "《意识形态的崇高客体》",
+      "《敏感的主体》",
+      "《少于无》"
+    ],
+    "core_ideas": "意识形态批判，实在界创伤，崇高客体，辩证唯物主义复兴，事件哲学",
+    "category": "western",
+    "tradition": "continental",
+    "era": "20-21世纪"
+  }
+]

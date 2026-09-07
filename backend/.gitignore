@@ -1,0 +1,29 @@
+# 依赖
+node_modules/
+
+# 环境配置（绝不能进 git —— 含真实密钥）
+.env
+.env.local
+.env.*.local
+
+# 数据库文件（绝不能进 git —— 含用户密码哈希）
+*.db
+*.db-journal
+prisma/dev.db
+
+# 日志
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Prisma migrate 的本地变种（如果启用）
+# migrations/dev.db*
+
+# 系统临时文件
+Thumbs.db

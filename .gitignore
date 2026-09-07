@@ -1,0 +1,32 @@
+# 整个项目根目录的 .gitignore
+# （philosophy-map/ 和 backend/ 各自有自己的 .gitignore）
+
+# 数据库
+*.db
+*.db-journal
+backend/prisma/dev.db
+
+# 内容快照（应该从 content-batch/ 生成，不进 git）
+backend/prisma/content.json
+
+# 部署/打包产物
+*.zip
+backend-update.zip
+dist-update.zip
+philosophy-deploy.zip
+
+# 内容批处理（开发期工具，部署后冗余）
+content-batch/
+
+# 环境
+.env
+.env.local
+
+# 工作记忆 / 工具残留（含敏感信息，绝不能进 git）
+.workbuddy/
+.superpowers/
+
+# 临时草稿 / 个人工作产物
+*.bak
+*.tmp
+*~

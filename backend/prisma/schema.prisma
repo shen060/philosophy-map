@@ -1,0 +1,75 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String           @id @default(uuid())
+  email         String           @unique
+  name          String
+  password      String
+  createdAt     DateTime         @default(now())
+  favorites     Favorite[]
+  browseHistory BrowseHistory[]
+  searchHistory SearchHistory[]
+}
+
+model Philosopher {
+  id                String   @id
+  nameCn            String
+  nameEn            String
+  birthYear         Int?
+  deathYear         Int?
+  era               String
+  nationality       String
+  coreIdea          String
+  biography         String
+  historicalContext String
+  famousQuotes      String   // JSON string
+  works             String   // JSON string
+  schools           String   // JSON string
+  keyConcepts       String   @default("[]") // JSON string: [{term, def}]
+  anecdotes         String   @default("[]") // JSON string: [string]
+  favorites         Favorite[]
+  browseHistory     BrowseHistory[]
+}
+
+model Link {
+  sourceId String
+  targetId String
+  type     String            // 'influence' | 'opposition'
+  note     String
+  @@id([sourceId, targetId, type])
+}
+
+model Favorite {
+  userId        String
+  philosopherId String
+  createdAt     DateTime @default(now())
+  @@id([userId, philosopherId])
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  philosopher Philosopher @relation(fields: [philosopherId], references: [id], onDelete: Cascade)
+}
+
+// 浏览记录（用户点击过的哲学家）
+model BrowseHistory {
+  userId        String
+  philosopherId String
+  visitedAt     DateTime @default(now())
+  @@id([userId, philosopherId])
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  philosopher Philosopher @relation(fields: [philosopherId], references: [id], onDelete: Cascade)
+}
+
+// 搜索历史（用户搜索过的关键词）
+model SearchHistory {
+  userId     String
+  query      String
+  searchedAt DateTime @default(now())
+  @@id([userId, query])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
