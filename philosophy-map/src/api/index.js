@@ -61,5 +61,53 @@ export const searchHistory = {
   clear: () => request('/search/history', { method: 'DELETE', body: JSON.stringify({}) }),
 };
 
+// AI 对话历史（方案 C）：scope = 'guide' 或 philosopherId
+export const chatHistory = {
+  list: (scope) => request('/chat/history?scope=' + encodeURIComponent(scope)),
+  clear: (scope) => request('/chat/history?scope=' + encodeURIComponent(scope), { method: 'DELETE' }),
+};
+
+// AI 对话（SSE 流式）：POST /api/chat
+// messages: [{role, content}]；onDelta(text) 逐段回调增量，onError(msg) 回复中断错误
+// mode='guide' 时为全局向导模式（philosopherId 传 null）
+export async function chatStream(philosopherId, messages, { onDelta, onError, signal, mode } = {}) {
+  const headers = { 'Content-Type': 'application/json' };
+  const t = getToken();
+  if (t) headers['Authorization'] = 'Bearer ' + t;
+
+  const res = await fetch('/api/chat', {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ philosopherId, messages, mode }),
+    signal,
+  });
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.error || `HTTP ${res.status}`);
+  }
+
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let buf = '';
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buf += decoder.decode(value, { stream: true });
+    const lines = buf.split('\n');
+    buf = lines.pop(); // 留半行到下一轮
+    for (const line of lines) {
+      const s = line.trim();
+      if (!s.startsWith('data:')) continue;
+      const payload = s.slice(5).trim();
+      if (payload === '[DONE]') continue;
+      try {
+        const j = JSON.parse(payload);
+        if (j.error) { if (onError) onError(j.error); }
+        else if (j.delta && onDelta) onDelta(j.delta);
+      } catch { /* 忽略不完整行 */ }
+    }
+  }
+}
+
 // token 工具
 export const token = { get: getToken, set: setToken };

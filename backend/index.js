@@ -12,6 +12,7 @@ const authRouter = require('./src/routes/auth');
 const philosophersRouter = require('./src/routes/philosophers');
 const linksRouter = require('./src/routes/links');
 const searchRouter = require('./src/routes/search');
+const chatRouter = require('./src/routes/chat');
 
 const app = express();
 
@@ -55,6 +56,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/philosophers', philosophersRouter);
 app.use('/api/links', linksRouter);
 app.use('/api/search', searchRouter);
+app.use('/api/chat', chatRouter);
 
 // 404 兜底（放所有路由之后）
 app.use(notFoundHandler);

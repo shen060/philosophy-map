@@ -16,6 +16,10 @@ const config = {
     .filter(Boolean),
   // 日志级别：'dev' 打印请求日志，'prod' 只打印错误
   logLevel: process.env.LOG_LEVEL || 'dev',
+  // LLM（AI 对话，OpenAI 兼容协议；留空 = 对话接口返回 503，不影响其他功能）
+  llmApiKey: process.env.LLM_API_KEY || '',
+  llmBaseUrl: process.env.LLM_BASE_URL || 'https://api.deepseek.com/v1',
+  llmModel: process.env.LLM_MODEL || 'deepseek-chat',
 };
 
 // 启动校验：JWT_SECRET 缺失直接退出（否则签发的 token 无法验证）

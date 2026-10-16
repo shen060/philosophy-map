@@ -12,29 +12,33 @@
           <p class="welcome-desc">105 位先哲的星辰在此运转，选择一片星云开启你的漫游</p>
           <div class="welcome-galaxy-choices">
             <button class="galaxy-choice western" @click="enterGalaxy('western')">
-              <span class="galaxy-icon">🌑</span>
               <span class="galaxy-label">西方星云</span>
               <span class="galaxy-count">{{ westernCount }} 位先哲</span>
             </button>
             <button class="galaxy-choice eastern" @click="enterGalaxy('eastern')">
-              <span class="galaxy-icon">🌓</span>
               <span class="galaxy-label">东方星云</span>
               <span class="galaxy-count">{{ easternCount }} 位先哲</span>
             </button>
             <button class="galaxy-choice all" @click="enterGalaxy('all')">
-              <span class="galaxy-icon">🌌</span>
               <span class="galaxy-label">全体星云</span>
               <span class="galaxy-count">{{ nodes.length }} 位先哲</span>
             </button>
           </div>
           <p v-if="loadingData" class="welcome-loading">星图加载中…</p>
         </div>
+        <!-- ICP 备案信息（工信部要求：首页底部展示并可跳转） -->
+        <a
+          class="welcome-icp"
+          href="https://beian.miit.gov.cn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >粤ICP备2026155667号</a>
       </div>
     </transition>
 
     <!-- 加载错误提示 -->
     <div v-if="loadError" class="error-banner">
-      <span>⚠️ 数据加载失败：{{ loadError }}</span>
+      <span>数据加载失败：{{ loadError }}</span>
       <button class="error-retry" @click="loadData">重试</button>
     </div>
 
@@ -53,14 +57,14 @@
     <!-- 顶部工具栏：搜索 + 登录 -->
     <div class="top-bar">
       <div class="top-left">
-        <div class="title" @click="backToWelcome" title="返回星云选择">⚡ 群星闪耀时</div>
+        <div class="title" @click="backToWelcome" title="返回星云选择">群星闪耀时</div>
 
         <!-- 搜索框 -->
         <div class="search-wrap">
           <input
             v-model="searchQuery"
             class="search-input"
-            placeholder="🔍 搜名字 / 思想 / 学派 / 名言..."
+            placeholder="搜名字 / 思想 / 学派 / 名言..."
             @input="doSearch"
             @focus="onSearchFocus"
             @blur="onSearchBlur"
@@ -100,14 +104,19 @@
             </div>
           </div>
         </div>
+
+        <!-- 全局 AI 向导入口 -->
+        <button class="auth-btn guide-btn" @click="guideOpen = true" title="AI 向导为你引荐哲学家">
+          AI向导
+        </button>
       </div>
 
       <div class="top-right">
         <template v-if="currentUser">
-          <span class="user-greeting">👤 {{ currentUser.name }}</span>
-          <button class="auth-btn" @click="openHistoryModal">📖 浏览记录</button>
+          <span class="user-greeting">{{ currentUser.name }}</span>
+          <button class="auth-btn" @click="openHistoryModal">浏览记录</button>
           <button class="auth-btn" @click="toggleFavoritesView">
-            {{ favoritesOnly ? '🌌 返回全部星云' : '⭐ 我的收藏' }}
+            {{ favoritesOnly ? '返回全部星云' : '我的收藏' }}
           </button>
           <button class="auth-btn" @click="logout">退出</button>
         </template>
@@ -117,35 +126,50 @@
       </div>
     </div>
 
-    <!-- 视图切换 -->
-    <div class="view-switch">
-      <button
-        class="view-btn"
-        :class="{ active: galaxyFilter === 'western' }"
-        @click="switchGalaxy('western')"
-      >🌑 西方</button>
-      <button
-        class="view-btn"
-        :class="{ active: galaxyFilter === 'eastern' }"
-        @click="switchGalaxy('eastern')"
-      >🌓 东方</button>
-      <button
-        class="view-btn"
-        :class="{ active: galaxyFilter === 'all' }"
-        @click="switchGalaxy('all')"
-      >🌌 全体</button>
-      <span class="view-divider"></span>
-      <button
-        class="view-btn"
-        :class="{ active: viewMode === 'star' }"
-        @click="viewMode = 'star'"
-      >✨ 星图</button>
-      <button
-        class="view-btn"
-        :class="{ active: viewMode === 'cluster' }"
-        @click="viewMode = 'cluster'"
-      >🫧 聚类</button>
-    </div>
+    <!-- 视图切换抽屉：折叠态（底部贴边横条）-->
+    <button
+      v-if="!viewSwitchOpen"
+      class="view-rail"
+      @click="viewSwitchOpen = true"
+      title="打开星云切换"
+    >
+      <span class="view-rail-label">星云</span>
+    </button>
+
+    <!-- 视图切换抽屉：展开态 -->
+    <transition name="view-slide">
+      <div v-if="viewSwitchOpen" class="view-drawer">
+        <button class="view-drawer-close" @click="viewSwitchOpen = false" title="收起">▾</button>
+        <div class="view-drawer-content">
+          <button
+            class="view-btn"
+            :class="{ active: galaxyFilter === 'western' }"
+            @click="switchGalaxy('western')"
+          >西方</button>
+          <button
+            class="view-btn"
+            :class="{ active: galaxyFilter === 'eastern' }"
+            @click="switchGalaxy('eastern')"
+          >东方</button>
+          <button
+            class="view-btn"
+            :class="{ active: galaxyFilter === 'all' }"
+            @click="switchGalaxy('all')"
+          >全体</button>
+          <span class="view-divider"></span>
+          <button
+            class="view-btn"
+            :class="{ active: viewMode === 'star' }"
+            @click="viewMode = 'star'"
+          >星图</button>
+          <button
+            class="view-btn"
+            :class="{ active: viewMode === 'cluster' }"
+            @click="viewMode = 'cluster'"
+          >聚类</button>
+        </div>
+      </div>
+    </transition>
 
     <!-- 左侧筛选面板 -->
     <FilterPanel
@@ -165,6 +189,16 @@
       :all-nodes="nodes"
       :links="links"
       @toggle-favorite="toggleFavorite"
+      @need-login="showLogin = true"
+    />
+
+    <!-- 全局 AI 向导弹窗 -->
+    <GuidePanel
+      v-if="guideOpen"
+      :nodes="nodes"
+      @close="guideOpen = false"
+      @select="jumpFromGuide"
+      @need-login="showLogin = true"
     />
 
     <!-- 底部图例 -->
@@ -180,6 +214,13 @@
       <div v-if="loadingData" class="legend-item">
         <span style="color:#aaa">加载中...</span>
       </div>
+      <!-- ICP 备案信息（工信部要求：首页底部展示并可跳转） -->
+      <a
+        class="legend-icp"
+        href="https://beian.miit.gov.cn"
+        target="_blank"
+        rel="noopener noreferrer"
+      >粤ICP备2026155667号</a>
     </div>
 
     <!-- 登录/注册弹窗 -->
@@ -204,7 +245,7 @@
     <!-- 浏览记录弹窗 -->
     <div v-if="showHistoryModal" class="modal-backdrop" @click.self="showHistoryModal = false">
       <div class="modal history-modal">
-        <h3>📖 浏览记录</h3>
+        <h3>浏览记录</h3>
         <div class="history-list" v-if="historyList.length">
           <div
             v-for="p in historyList"
@@ -229,10 +270,12 @@ import { ref, reactive, computed, onMounted, onBeforeUnmount, watch } from 'vue'
 import StarMap from './components/StarMap.vue';
 import DetailCard from './components/DetailCard.vue';
 import FilterPanel from './components/FilterPanel.vue';
+import GuidePanel from './components/GuidePanel.vue';
 import { auth as authApi, philosophers, getLinks, search as searchApi, searchHistory as searchHistoryApi } from './api';
 import { useAuth } from './composables/useAuth';
 
 const viewMode = ref('star');
+const viewSwitchOpen = ref(false);   // 星云切换抽屉展开状态
 const selectedId = ref(null);
 const loadingData = ref(true);
 const loadError = ref(null);
@@ -400,6 +443,18 @@ let searchHistoryTimer = null;               // 防抖：记录搜索时不每�
 const showHistoryModal = ref(false);
 const historyList = ref([]);                 // [{哲学家完整数据, visitedAt}]
 
+// 全局 AI 向导
+const guideOpen = ref(false);
+function jumpFromGuide(id) {
+  guideOpen.value = false;
+  if (favoritesOnly.value) exitFavoritesView();
+  // 不在当前星云时自动切到全体
+  if (galaxyFilter.value !== 'all' && !galaxyIds.value.has(id)) {
+    galaxyFilter.value = 'all';
+  }
+  selectedId.value = id;
+}
+
 // 登录
 const showLogin = ref(false);
 const loginMode = ref('login');
@@ -419,17 +474,14 @@ const selectedPhilosopher = computed(() => {
 
 const onNodeClick = (node) => {
   selectedId.value = node ? node.id : null;
-  if (selectedId.value && currentUser.value) {
-    checkFavorited();
-    // 登录用户自动记录浏览（异步，不阻塞交互）
-    philosophers.addHistory(selectedId.value).catch(() => {});
-  }
+  // 收藏检查与浏览记录统一在 watch(selectedId) 里处理（覆盖点星/搜索/向导跳转所有入口）
 };
 
 const handleKeydown = (e) => {
   if (e.key === 'Escape') {
     selectedId.value = null;
     showLogin.value = false;
+    guideOpen.value = false;
   }
 };
 
@@ -549,7 +601,6 @@ function selectFromSearch(p) {
     galaxyFilter.value = 'all';
   }
   selectedId.value = p.id;
-  if (currentUser.value) checkFavorited();
 }
 // === 登录 ===
 async function submitAuth() {
@@ -632,10 +683,14 @@ onBeforeUnmount(() => {
   window.removeEventListener('keydown', handleKeydown);
 });
 
-// 选中变化时检查收藏
+// 选中变化时检查收藏 + 记录浏览（覆盖点星/搜索/向导跳转所有入口）
 watch(selectedId, () => {
   selectedFavorited.value = false;
-  if (selectedId.value && currentUser.value) checkFavorited();
+  if (selectedId.value && currentUser.value) {
+    checkFavorited();
+    // 登录用户自动记录浏览（异步，不阻塞交互）
+    philosophers.addHistory(selectedId.value).catch(() => {});
+  }
 });
 </script>
 
@@ -711,6 +766,9 @@ body {
 .search-clear { right: 28px; }
 .search-btn:hover { color: #2a1008; }
 
+/* AI 向导入口按钮（搜索框旁） */
+.guide-btn { flex-shrink: 0; letter-spacing: 1px; }
+
 .search-dropdown {
   position: absolute;
   top: calc(100% + 4px);
@@ -758,16 +816,88 @@ body {
 .auth-btn.primary:hover { background: linear-gradient(140deg, rgba(180,140,80,0.72), rgba(160,120,70,0.78)); }
 .auth-btn.full { width: 100%; padding: 8px; font-size: 13px; }
 
-/* 视图切换 */
-.view-switch {
+/* 视图切换抽屉：折叠态（底部贴边横条）*/
+.view-rail {
   position: absolute;
   left: 50%;
+  bottom: 0;
   transform: translateX(-50%);
-  bottom: 20px;
-  display: flex;
-  gap: 6px;
   z-index: 20;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 18px;
+  background: linear-gradient(180deg, rgba(248,240,216,0.95), rgba(228,220,192,0.95));
+  border: 1px solid #a08a68;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  color: #3a2008;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 -2px 8px rgba(70,40,10,0.20), inset 0 0 14px rgba(160,130,80,0.12);
+  transition: padding .2s, background .15s;
 }
+.view-rail:hover {
+  padding: 8px 22px;
+  background: linear-gradient(180deg, rgba(252,244,220,0.98), rgba(232,224,196,0.98));
+}
+.view-rail-label {
+  font-size: 11px;
+  letter-spacing: 4px;
+  font-weight: 600;
+}
+
+/* 视图切换抽屉：展开态（底部抽屉）*/
+.view-drawer {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px 10px 12px;
+  background: linear-gradient(160deg, rgba(252,244,220,0.97), rgba(232,220,190,0.97));
+  border: 1px solid #a08a68;
+  border-radius: 6px;
+  box-shadow: 0 6px 24px rgba(70,40,10,0.30), inset 0 0 26px rgba(160,130,80,0.18);
+}
+.view-drawer-close {
+  background: transparent;
+  border: none;
+  border-radius: 3px;
+  color: #6a4a28;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1;
+  padding: 2px 20px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.view-drawer-close:hover {
+  background: rgba(160,130,90,0.20);
+  color: #2a1008;
+}
+.view-drawer-content {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 抽屉动画 */
+.view-slide-enter-active,
+.view-slide-leave-active {
+  transition: transform .25s ease, opacity .25s ease;
+}
+.view-slide-enter-from,
+.view-slide-leave-to {
+  transform: translate(-50%, 100%);
+  opacity: 0;
+}
+
 .view-btn {
   padding: 5px 14px;
   background: linear-gradient(140deg, rgba(232,220,180,0.70), rgba(212,196,156,0.70));
@@ -799,6 +929,35 @@ body {
 .legend-line-solid { width: 34px; height: 0; border-top: 2px solid #6a4a28; }
 .legend-line-dashed { width: 34px; height: 0; border-top: 2px dashed #8a3a38; }
 .legend > div:first-child { font-weight: 700; font-size: 12px; margin-bottom: 4px; letter-spacing: 1px; }
+
+/* ICP 备案号：欢迎页（浅色底，视口底部居中） */
+.welcome-icp {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: #8a7a58;
+  text-decoration: none;
+  opacity: 0.85;
+  transition: color .15s, opacity .15s;
+}
+.welcome-icp:hover { color: #5a3a20; opacity: 1; text-decoration: underline; }
+
+/* ICP 备案号：星图页（图例卡片内小字） */
+.legend-icp {
+  display: block;
+  margin-top: 6px;
+  padding-top: 5px;
+  border-top: 1px solid rgba(160,130,90,0.30);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: #8a7a58;
+  text-decoration: none;
+  transition: color .15s;
+}
+.legend-icp:hover { color: #5a3a20; text-decoration: underline; }
 
 /* 弹窗 */
 .modal-backdrop {
@@ -922,13 +1081,18 @@ body {
   }
   .legend-item { font-size: 10px; gap: 6px; }
   .legend-line-solid, .legend-line-dashed { width: 20px; }
-  .view-switch {
-    left: 50%;
-    right: auto;
+  /* view-drawer 置于最底部（与桌面一致）；z-index 低于筛选面板(18)，打开筛选时不挡「重置筛选」 */
+  .view-drawer {
     bottom: 12px;
-    transform: translateX(-50%);
+    max-width: calc(100vw - 130px);
+    z-index: 16;
   }
-  .view-btn { padding: 7px 14px; font-size: 12px; }
+  .view-rail {
+    bottom: 12px;
+    border: 1px solid #a08a68;
+    border-radius: 6px;
+  }
+  .view-btn { padding: 5px 8px; font-size: 11px; }
 
   /* 登录/注册弹窗：宽度自适应屏幕 */
   .modal {
@@ -997,7 +1161,7 @@ body {
   align-items: center;
   gap: 8px;
   width: 150px;
-  padding: 24px 12px 20px;
+  padding: 22px 12px 18px;
   background: linear-gradient(150deg, rgba(252,244,220,0.85), rgba(232,220,190,0.85));
   border: 1px solid #a08a68;
   border-radius: 6px;
@@ -1011,7 +1175,6 @@ body {
   box-shadow: 0 8px 24px rgba(70,40,10,0.28), inset 0 0 20px rgba(160,130,80,0.16);
   border-color: #6a4a28;
 }
-.galaxy-icon { font-size: 34px; line-height: 1; }
 .galaxy-label { font-size: 16px; font-weight: 700; color: #3a2008; letter-spacing: 2px; }
 .galaxy-count { font-size: 11px; color: #8a6a48; }
 .galaxy-choice.western:hover { background: linear-gradient(150deg, rgba(232,224,200,0.92), rgba(200,190,160,0.92)); }
@@ -1039,10 +1202,9 @@ body {
   .welcome-desc { font-size: 12px; margin-bottom: 24px; }
   .welcome-galaxy-choices { gap: 10px; }
   .galaxy-choice { width: calc(50vw - 20px); padding: 18px 8px 14px; }
-  .galaxy-icon { font-size: 28px; }
   .galaxy-label { font-size: 14px; letter-spacing: 1px; }
-  /* 窄屏时视图切换区按钮较多，缩小间距 */
-  .view-switch { gap: 4px; flex-wrap: nowrap; }
+  /* 窄屏时视图切换抽屉内容较多，允许换行 */
+  .view-drawer-content { flex-wrap: wrap; justify-content: center; }
   .view-btn { padding: 6px 9px; font-size: 11px; }
   .view-divider { margin: 0 2px; }
 }

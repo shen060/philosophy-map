@@ -16,6 +16,7 @@ model User {
   favorites     Favorite[]
   browseHistory BrowseHistory[]
   searchHistory SearchHistory[]
+  chatMessages  ChatMessage[]
 }
 
 model Philosopher {
@@ -72,4 +73,17 @@ model SearchHistory {
   searchedAt DateTime @default(now())
   @@id([userId, query])
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// AI 对话历史（方案 C）：按「用户 + 会话」存储
+// scope = 'guide'（全局向导）或 philosopherId（与某位先哲的讨论）
+model ChatMessage {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  scope     String
+  role      String   // 'user' | 'assistant'
+  content   String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId, scope, id])
 }
