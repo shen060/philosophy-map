@@ -7,7 +7,6 @@
     :class="{ 'has-active': activeCount > 0 }"
     title="打开筛选"
   >
-    <span class="rail-icon">⚙</span>
     <span class="rail-label">筛选</span>
     <span v-if="activeCount > 0" class="rail-badge">{{ activeCount }}</span>
   </button>
@@ -16,52 +15,54 @@
   <transition name="filter-slide">
     <aside v-if="open" class="filter-panel">
       <header class="filter-header">
-        <h3>🎯 筛选</h3>
+        <h3>筛选</h3>
         <button class="filter-close" @click="open = false" title="收起">‹</button>
       </header>
 
-      <div class="filter-summary">
-        匹配 <strong>{{ matchedCount }}</strong> / {{ totalCount }} 位哲学家
+      <div class="filter-body">
+        <div class="filter-summary">
+          匹配 <strong>{{ matchedCount }}</strong> / {{ totalCount }} 位哲学家
+        </div>
+
+        <section class="filter-section">
+          <div class="filter-section-title">时期 <span class="dim">（多选）</span></div>
+          <div class="chip-grid">
+            <button
+              v-for="era in eras"
+              :key="era"
+              class="chip"
+              :class="{ active: filters.eras.includes(era) }"
+              @click="toggleArr(filters.eras, era)"
+            >{{ era }}</button>
+          </div>
+        </section>
+
+        <section class="filter-section">
+          <div class="filter-section-title">学派 <span class="dim">（多选）</span></div>
+          <div class="chip-grid schools">
+            <button
+              v-for="s in schools"
+              :key="s"
+              class="chip"
+              :class="{ active: filters.schools.includes(s) }"
+              @click="toggleArr(filters.schools, s)"
+            >{{ s }}</button>
+          </div>
+        </section>
+
+        <section class="filter-section">
+          <div class="filter-section-title">国籍 <span class="dim">（多选）</span></div>
+          <div class="chip-grid">
+            <button
+              v-for="n in nationalities"
+              :key="n"
+              class="chip"
+              :class="{ active: filters.nationalities.includes(n) }"
+              @click="toggleArr(filters.nationalities, n)"
+            >{{ n }}</button>
+          </div>
+        </section>
       </div>
-
-      <section class="filter-section">
-        <div class="filter-section-title">时期 <span class="dim">（多选）</span></div>
-        <div class="chip-grid">
-          <button
-            v-for="era in eras"
-            :key="era"
-            class="chip"
-            :class="{ active: filters.eras.includes(era) }"
-            @click="toggleArr(filters.eras, era)"
-          >{{ era }}</button>
-        </div>
-      </section>
-
-      <section class="filter-section">
-        <div class="filter-section-title">学派 <span class="dim">（多选 · 可滚动）</span></div>
-        <div class="chip-grid schools">
-          <button
-            v-for="s in schools"
-            :key="s"
-            class="chip"
-            :class="{ active: filters.schools.includes(s) }"
-            @click="toggleArr(filters.schools, s)"
-          >{{ s }}</button>
-        </div>
-      </section>
-
-      <section class="filter-section">
-        <div class="filter-section-title">国籍 <span class="dim">（多选）</span></div>
-        <div class="chip-grid">
-          <button
-            v-for="n in nationalities"
-            :key="n"
-            class="chip"
-            :class="{ active: filters.nationalities.includes(n) }"
-            @click="toggleArr(filters.nationalities, n)"
-          >{{ n }}</button>
-        </div>
-      </section>
 
       <footer class="filter-footer">
         <button class="filter-reset" :disabled="activeCount === 0" @click="resetAll">
@@ -139,7 +140,6 @@ function resetAll() {
   background: linear-gradient(180deg, rgba(160,120,70,0.65), rgba(140,100,60,0.70));
   color: #f4eed8;
 }
-.rail-icon { font-size: 14px; }
 .rail-label {
   writing-mode: vertical-rl;
   font-size: 11px;
@@ -216,6 +216,16 @@ function resetAll() {
 }
 .filter-summary strong { color: #2a1008; font-weight: 700; font-size: 13px; }
 
+/* 内容区：整体滚动，标题和底部按钮固定 */
+.filter-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding-right: 4px;
+}
+
 .filter-section {
   margin-bottom: 12px;
   display: flex;
@@ -236,16 +246,13 @@ function resetAll() {
   margin-left: 4px;
 }
 
-/* chips 网格：自动换行 */
+/* chips 网格：自动换行（滚动由 .filter-body 统一处理） */
 .chip-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
-  overflow-y: auto;
 }
 .chip-grid.schools {
-  /* 学派较多，给滚动上限 */
-  max-height: 180px;
   padding-right: 4px;
 }
 .chip {
@@ -276,7 +283,7 @@ function resetAll() {
 }
 
 .filter-footer {
-  margin-top: auto;
+  margin-top: 10px;
   padding-top: 10px;
   border-top: 1px dashed rgba(160,130,90,0.40);
 }
@@ -322,13 +329,13 @@ function resetAll() {
     bottom: 56px;
     width: auto;
     max-height: calc(100vh - 160px);
+    padding: 12px 14px 10px 14px;
   }
+  .filter-body { padding-right: 2px; }
   .filter-rail {
     width: 32px;
     padding: 10px 0;
   }
-  .rail-icon { font-size: 12px; }
   .rail-label { font-size: 10px; letter-spacing: 3px; }
-  .chip-grid.schools { max-height: 120px; }
 }
 </style>

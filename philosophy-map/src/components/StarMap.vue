@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div ref="container" class="canvas-area">
     <!-- Three.js WebGL 画布 -->
     <canvas ref="canvas" style="display:block;width:100%;height:100%"></canvas>
@@ -8,6 +8,7 @@
     <div ref="tooltip" class="tooltip" v-if="tooltipVisible" :style="tooltipStyle">
       <div>{{ tooltipData.name }} · {{ tooltipData.nameEn }}</div>
       <div style="opacity:.65">{{ tooltipData.era }} · {{ tooltipData.nationality }}</div>
+      <div v-if="tooltipData.coreIdea" class="tooltip-core">{{ tooltipData.coreIdea }}</div>
     </div>
     <!-- 右下角控制按钮 -->
     <div class="starmap-controls">
@@ -59,6 +60,7 @@ let animationId = null;
 // 3D 位置（单一数据源）
 const positions = new Map();  // nodeId → THREE.Vector3
 let nodeMeshes = [];          // 用于 Raycaster
+let hitMeshes = [];           // 隐形命中代理球（覆盖光晕区域，供 Raycaster 拾取）
 let labelObjects = [];        // CSS2DObject 标签
 let linkLines = [];           // THREE.Line 连线
 let allMeshesGroup = null;    // 所有节点 + 连线的父组（方便整体旋转）
@@ -72,6 +74,10 @@ let lastDragY = 0;
 let dragStartX = 0;       // 按下起点（死区判定用）
 let dragStartY = 0;
 let dragMoved = false;    // 是否超过死区（区分触摸"轻点选中"与"拖动旋转"）
+
+// 标签去重节流（避免每帧 getBoundingClientRect 触发 reflow 导致卡顿）
+let occlusionFrameSkip = 0;
+const OCCLUSION_INTERVAL = 4;  // 每 4 帧执行一次去重
 const DRAG_DEADZONE_PX = 8;
 let activeTouches = 0;    // 当前触摸手指数（双指捏合时交还给 OrbitControls 缩放）
 let gestureHadMultitouch = false;  // 本轮手势是否出现过双指（出现过则末尾不触发轻点）
@@ -175,7 +181,7 @@ const computeGalaxyPositions = (nodes, links) => {
 
   const N = nodes.length;
   const goldenAngle = Math.PI * (3 - Math.sqrt(5)); // 黄金角
-  const R = 148; // 球体半径撑大，给标签和排斥留足空间
+  const R = 260; // 球体半径继续撑大，给长标签和密集投影留出足够空间
 
   nodes.forEach((node, idx) => {
     const seed = cyrb32(node.id);
@@ -194,7 +200,7 @@ const computeGalaxyPositions = (nodes, links) => {
     r *= bias;
 
     // 小 jitter 做微调
-    r += (rng() - 0.5) * 12;
+    r += (rng() - 0.5) * 14;
 
     const x = r * Math.sin(phi) * Math.cos(theta);
     const y = r * Math.sin(phi) * Math.sin(theta);
@@ -203,7 +209,7 @@ const computeGalaxyPositions = (nodes, links) => {
   });
 
   // 迭代排斥：节点太近就互相推开，避免名字堆叠
-  const MIN_DIST = 18;
+  const MIN_DIST = 38;
   const posList = nodes.map(n => positions.get(n.id));
   for (let iter = 0; iter < 160; iter++) {
     let moved = false;
@@ -244,9 +250,9 @@ const computeClusterPositions = (nodes) => {
     const phi = Math.acos(-1 + (2 * i) / schools.length);
     const theta = Math.sqrt(schools.length * Math.PI) * phi;
     clusterCenters[s] = new THREE.Vector3(
-      Math.cos(theta) * 130,
-      Math.sin(theta) * 130 * Math.cos(phi),
-      Math.sin(theta) * 130 * Math.sin(phi)
+      Math.cos(theta) * 190,
+      Math.sin(theta) * 190 * Math.cos(phi),
+      Math.sin(theta) * 190 * Math.sin(phi)
     );
   });
 
@@ -264,10 +270,10 @@ const computeClusterPositions = (nodes) => {
       const seed = cyrb32(node.id);
       const rng = seededRandom(seed + i * 7919);
       const angle = (i / Math.max(members.length, 1)) * Math.PI * 2 + rng() * 0.45;
-      const radius = 14 + Math.sqrt(i) * 5 + rng() * 7;
+      const radius = 24 + Math.sqrt(i) * 8 + rng() * 10;
       const offX = Math.cos(angle) * radius;
       const offZ = Math.sin(angle) * radius;
-      const offY = (rng() - 0.5) * 12;
+      const offY = (rng() - 0.5) * 14;
       positions.set(node.id, new THREE.Vector3(
         center.x + offX,
         center.y + offY,
@@ -451,6 +457,7 @@ const initScene = () => {
   window.addEventListener('resize', handleResize);
 
   buildGalaxy();
+
   animate();
   } catch (err) {
     console.error('initScene error:', err);
@@ -561,10 +568,80 @@ const getSharedParchmentDomeTex = () => {
   return _parchmentDomeTex;
 };
 
-// inside-out 大球壳 R=260，把玩家包在牛皮纸里
+// === 屏幕空间标签去重：每帧隐藏重叠的低优先级标签 ===
+const updateLabelOcclusion = () => {
+  if (!camera || labelObjects.length === 0) return;
+
+  const selectedId = props.selectedId;
+  const hitSet = new Set(props.searchHitIds);
+  const camPos = camera.position;
+  const occupied = [];
+  const PADDING_X = 8;
+  const PADDING_Y = 5;
+
+  // 收集当前可见 label 的屏幕矩形、距离和优先级
+  const candidates = [];
+  labelObjects.forEach((label) => {
+    if (!label.visible) return;
+    const el = label.element;
+    if (!el || el.style.display === 'none') return;
+
+    const rect = el.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return;
+
+    const worldPos = new THREE.Vector3();
+    label.getWorldPosition(worldPos);
+    const dist = worldPos.distanceTo(camPos);
+
+    let priority = 0;
+    const id = label.userData.nodeId;
+    if (id === selectedId) priority += 2000;
+    if (hitSet.has(id)) priority += 1000;
+    priority += (label.userData.degree || 0) * 30;
+    // 名字短的更有价值显示完整
+    const textLen = (el.textContent || '').length;
+    priority -= textLen * 2;
+
+    candidates.push({ label, rect, dist, priority });
+  });
+
+  // 优先级高 → 显示；同优先级距离近优先；名字短优先
+  candidates.sort((a, b) => {
+    if (b.priority !== a.priority) return b.priority - a.priority;
+    if (Math.abs(a.dist - b.dist) > 0.1) return a.dist - b.dist;
+    return (a.rect.width * a.rect.height) - (b.rect.width * b.rect.height);
+  });
+
+  candidates.forEach((item) => {
+    const r = item.rect;
+    let overlaps = false;
+    for (const o of occupied) {
+      if (!(
+        r.right + PADDING_X < o.left - PADDING_X ||
+        r.left - PADDING_X > o.right + PADDING_X ||
+        r.bottom + PADDING_Y < o.top - PADDING_Y ||
+        r.top - PADDING_Y > o.bottom + PADDING_Y
+      )) {
+        overlaps = true;
+        break;
+      }
+    }
+    if (overlaps) {
+      item.label.element.style.opacity = '0';
+      item.label.element.style.pointerEvents = 'none';
+    } else {
+      item.label.element.style.opacity = '1';
+      // 标签始终不拦截鼠标事件，让点击穿透到 canvas 触发节点选中
+      item.label.element.style.pointerEvents = 'none';
+      occupied.push(r);
+    }
+  });
+};
+
+// inside-out 大球壳 R=360，把玩家包在牛皮纸里，节点分布在 R=260 内不会穿出
 const createParchmentDome = () => {
   const tex = getSharedParchmentDomeTex();
-  const geo = new THREE.SphereGeometry(260, 48, 36);
+  const geo = new THREE.SphereGeometry(360, 48, 36);
   const mat = new THREE.MeshBasicMaterial({
     map: tex,
     side: THREE.BackSide,
@@ -599,8 +676,17 @@ const buildGalaxy = () => {
   });
   labelObjects = [];
   nodeMeshes = [];
+  hitMeshes = [];
   linkLines = [];
   positions.clear();
+
+  // 计算每个节点的连接度（用于标签优先级）
+  const nodeDegreeMap = {};
+  props.nodes.forEach(n => { nodeDegreeMap[n.id] = 0; });
+  props.links.forEach(l => {
+    if (nodeDegreeMap[l.source] != null) nodeDegreeMap[l.source]++;
+    if (nodeDegreeMap[l.target] != null) nodeDegreeMap[l.target]++;
+  });
 
   // 计算 3D 位置
   if (props.viewMode === 'cluster') {
@@ -616,7 +702,8 @@ const buildGalaxy = () => {
     const color = getNodeColor(node);
 
     // 节点球体（牛皮纸哑光深褐墨球，零 emissive）
-    const geo = new THREE.SphereGeometry(0.75, 24, 24);
+    // 半径 0.75 → 1.4：球壳 R 撑大后节点显得小，同步放大保持视觉一致
+    const geo = new THREE.SphereGeometry(1.4, 24, 24);
     const mat = new THREE.MeshStandardMaterial({
       color: color,
       roughness: 0.95,
@@ -634,7 +721,8 @@ const buildGalaxy = () => {
     nodeMeshes.push(mesh);
 
     // 虚线选择环（默认隐形；applySelectionStyle 控制显示）
-    const ring = createDashedSelectionRing(0.75);
+    // ring 半径从 0.75 → 1.4，与星球同步放大
+    const ring = createDashedSelectionRing(1.4);
     // 挂在 allMeshesGroup 下，与星球同坐标（每帧 ring.lookAt 相机做 billboard）
     ring.position.copy(mesh.position);
     ring.userData.nodeId = node.id;
@@ -655,14 +743,26 @@ const buildGalaxy = () => {
       opacity: 0.72,
     });
     const sprite = new THREE.Sprite(spriteMat);
-    sprite.scale.set(4.6, 4.6, 1);
+    sprite.scale.set(9.0, 9.0, 1);
     sprite.userData = {
       _origOpacity: 0.72,
-      _origScale: 4.6,
+      _origScale: 9.0,
       _isHalo: true,
     };
     mesh.add(sprite);
     mesh.userData._halo = sprite;
+
+    // 隐形命中代理球：用户看到的"星"主要是半径 ~4.5 的墨晕 sprite，
+    // 但 Raycaster 原先只对半径 1.4 的球体生效，点到光晕外围会 miss（详情页不弹出）。
+    // material.visible=false → 不渲染但仍可被射线命中（three r160 Mesh.raycast 不检查 visible）。
+    // 单独存 hitMeshes，勿并入 nodeMeshes，避免选中动画对它缩放/变色。
+    const hitGeo = new THREE.SphereGeometry(4.0, 12, 12);
+    const hitMat = new THREE.MeshBasicMaterial({ visible: false });
+    const hitProxy = new THREE.Mesh(hitGeo, hitMat);
+    hitProxy.position.copy(pos);
+    hitProxy.userData = { nodeId: node.id, philosopher: node };
+    allMeshesGroup.add(hitProxy);
+    hitMeshes.push(hitProxy);
 
     // CSS2D 标签（衬线深褐墨色 + 象牙白柔光字影）
     const labelDiv = document.createElement('div');
@@ -679,8 +779,9 @@ const buildGalaxy = () => {
     labelDiv.appendChild(nameEnEl);
 
     const label = new CSS2DObject(labelDiv);
-    label.position.set(0, 1.8, 0);
+    label.position.set(0, 4.5, 0);  // halo sprite scale=9 → 标签上移到 halo 顶部之上
     label.userData.nodeId = node.id;
+    label.userData.degree = nodeDegreeMap[node.id] || 0;
     mesh.add(label);
     labelObjects.push(label);
     // 保存引用（Task7 选中态加深刻度）
@@ -749,6 +850,12 @@ const applySelectionStyle = () => {
     const ring = mesh.userData._selectionRing;
     const nameCnEl = mesh.userData._nameCnEl;
     const nameEnEl = mesh.userData._nameEnEl;
+    const labelDiv = mesh.userData._labelDiv;
+
+    // 标签 class 状态（控制英文名是否显示 + 选中态高亮）
+    if (labelDiv) {
+      labelDiv.classList.remove('is-active', 'is-hot', 'is-related');
+    }
 
     // Step A：先还原（作为兜底）
     mesh.scale.set(1.0, 1.0, 1.0);
@@ -781,6 +888,7 @@ const applySelectionStyle = () => {
         haloScaleHit  = 1.3;
         ringScaleHit  = 1.1;
         ringVisible = true;
+        if (labelDiv) labelDiv.classList.add('is-active');
         if (nameCnEl) {
           nameCnEl.style.fontWeight = '700';
           nameCnEl.style.color = '#2a1008';
@@ -792,6 +900,7 @@ const applySelectionStyle = () => {
         // 关联节点：轻微放大墨圈浅显
         sphereScaleHit = 1.2;
         haloScaleHit  = 1.08;
+        if (labelDiv) labelDiv.classList.add('is-related');
       } else {
         // 非关联：大幅缩小 + 颜色 lerp 近象牙白
         sphereScaleHit = 0.4;
@@ -805,6 +914,7 @@ const applySelectionStyle = () => {
         haloScaleHit  = 1.2;
         ringScaleHit  = 1.0;
         ringVisible = true;
+        if (labelDiv) labelDiv.classList.add('is-hot');
         if (nameCnEl) {
           nameCnEl.style.fontWeight = '700';
           nameCnEl.style.color = '#2a1008';
@@ -887,7 +997,7 @@ const pickAt = (event) => {
   pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
   raycaster.setFromCamera(pointer, camera);
 
-  const intersects = raycaster.intersectObjects(nodeMeshes, false);
+  const intersects = raycaster.intersectObjects([...nodeMeshes, ...hitMeshes], false);
   if (intersects.length > 0) {
     const hit = intersects[0];
     emit('nodeClick', hit.object.userData.philosopher);
@@ -907,7 +1017,7 @@ const onPointerMove = (event) => {
   pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
   raycaster.setFromCamera(pointer, camera);
 
-  const intersects = raycaster.intersectObjects(nodeMeshes, false);
+  const intersects = raycaster.intersectObjects([...nodeMeshes, ...hitMeshes], false);
   if (intersects.length > 0) {
     tooltipData.value = intersects[0].object.userData.philosopher;
     tooltipVisible.value = true;
@@ -954,23 +1064,48 @@ const animate = () => {
 
     // 自动自转
     if (autoRotate.value && allMeshesGroup) {
-      allMeshesGroup.rotation.y += 0.003;
+      allMeshesGroup.rotation.y += 0.0015;  // 速度减半，减少自转时的 GPU 压力
     }
 
-    // 根据相机距离控制标签可见性 + 连线透明度：远看星球，近才看细节
+    // 根据相机距离控制标签可见性 + 远处标签自然淡出
     const camDist = camera.position.length();
-    const SHOW_ALL_LABELS = 260;
-    const SHOW_SELECTED_ONLY = 420;
+    const SHOW_ALL_LABELS = 340;
+    const SHOW_SELECTED_ONLY = 520;
+    // 远处标签淡出区间：节点距相机 < FADE_NEAR 全显示，> FADE_FAR 全消失
+    const FADE_NEAR = 220;
+    const FADE_FAR = 360;
     // 远→近的连线淡入系数 (0~1)
     const lineFade = Math.max(0, Math.min(1, (SHOW_SELECTED_ONLY - camDist) / (SHOW_SELECTED_ONLY - 70)));
+
+    const hitSet2 = new Set(props.searchHitIds);
+    const camPos = camera.position;
+    // 自转时按相机距离统一淡出：避免每帧 105 次 getWorldPosition，减少 DOM 更新
+    const autoRotateOpacity = autoRotate.value
+      ? Math.max(0.35, 1 - (camDist / SHOW_ALL_LABELS)).toFixed(2)
+      : null;
 
     labelObjects.forEach((label) => {
       if (camDist < SHOW_ALL_LABELS) {
         label.visible = true;
+        const id = label.userData.nodeId;
+        const isHighlighted = (props.selectedId === id) || hitSet2.has(id);
+        if (isHighlighted) {
+          label.element.style.opacity = '1';
+        } else if (autoRotate.value) {
+          label.element.style.opacity = autoRotateOpacity;
+        } else {
+          const worldPos = new THREE.Vector3();
+          label.getWorldPosition(worldPos);
+          const d = worldPos.distanceTo(camPos);
+          const t = Math.max(0, Math.min(1, (d - FADE_NEAR) / (FADE_FAR - FADE_NEAR)));
+          label.element.style.opacity = (1 - t).toFixed(2);
+        }
       } else if (camDist < SHOW_SELECTED_ONLY) {
         label.visible = !!props.selectedId && label.userData.nodeId === props.selectedId;
+        if (label.visible) label.element.style.opacity = '1';
       } else {
         label.visible = false;
+        label.element.style.opacity = '0';
       }
     });
 
@@ -1037,6 +1172,8 @@ const animate = () => {
 
     renderer.render(scene, camera);
     labelRenderer.render(scene, camera);
+    // 标签去重已临时禁用：每帧 105 个 getBoundingClientRect + O(n²) 比较是卡顿元凶
+    // 现在依赖布局参数（R=260, MIN_DIST=38）+ 小字号 + 隐藏英文名 来减少重叠
   } catch (err) {
     console.error('animate error:', err);
   }
@@ -1135,7 +1272,7 @@ onBeforeUnmount(() => {
 }
 
 :deep(.label-node .name-cn) {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   font-family: "Georgia", "Times New Roman", "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
   letter-spacing: 1px;
@@ -1145,7 +1282,9 @@ onBeforeUnmount(() => {
   white-space: nowrap;
 }
 
+/* 英文名默认隐藏，只在选中/搜索时显示（避免占地太大重叠） */
 :deep(.label-node .name-en) {
+  display: none;
   font-size: 9px;
   color: #7a6a48;
   font-style: italic;
@@ -1153,6 +1292,12 @@ onBeforeUnmount(() => {
   letter-spacing: 0.6px;
   text-shadow: 0 1px 0 rgba(248,242,222,0.7), 0 0 4px rgba(244,238,216,0.45);
   white-space: nowrap;
+}
+
+/* 选中/搜索命中的节点显示英文名（高优先级标签更具识别度） */
+:deep(.label-node.is-active .name-en),
+:deep(.label-node.is-hot .name-en) {
+  display: inline;
 }
 
 /* 右下角按钮容器：重置视角 / 自动自转 */
@@ -1207,16 +1352,28 @@ onBeforeUnmount(() => {
   box-shadow: 0 2px 8px rgba(90,60,24,0.2), inset 0 0 6px rgba(160,130,80,0.12);
 }
 
-/* === 移动端：控制按钮抬到第二行，避免与"星图/聚类"切换重叠；加大触控面积 === */
+.tooltip-core {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dashed #a08a68;
+  opacity: .85;
+  max-width: 260px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.6;
+}
 @media (max-width: 640px) {
   .starmap-controls {
-    bottom: 52px;
+    bottom: 16px;
     right: 10px;
+    flex-direction: column;
     gap: 6px;
   }
   .starmap-controls .view-btn {
-    padding: 8px 12px;
-    font-size: 12px;
+    padding: 5px 8px;
+    font-size: 10px;
   }
   /* 星球名字标签在窄屏略缩小，减少互相遮挡 */
   :deep(.label-node .name-cn) { font-size: 11px; }
