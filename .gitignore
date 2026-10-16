@@ -30,3 +30,12 @@ content-batch/
 *.bak
 *.tmp
 *~
+*.tar
+*.tar.gz
+
+# 临时工作目录（助手脚本、调试产物）
+tmp/
+
+# 个人求职材料 / 办公文档（不属于项目源码）
+*.docx
+docs/面试讲解-*.md

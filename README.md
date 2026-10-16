@@ -2,6 +2,8 @@
 
 > 一张可交互的 3D 哲学星空：把 105 位哲学家及其思想脉络，铺成一片可以旋转、缩放、探索的星图。
 
+**在线体验**：<https://philstars.top>
+
 西方与东方的哲学家在此交汇——从苏格拉底到王阳明，从理念论到心学。每一位哲学家都是一颗星，星星之间的连线，是他们跨越千年的**影响**与**对立**。
 
 ---
@@ -16,6 +18,8 @@
 - **多维筛选**：按时代 / 学派 / 国籍多选过滤
 - **全文搜索**：搜索哲学家，附带搜索历史
 - **用户系统**：注册 / 登录（JWT）、收藏、浏览历史
+- **AI 哲学向导**：接入大模型（OpenAI 兼容协议，默认 DeepSeek），支持「与某位先哲深入对话」与「按兴趣推荐先哲」两种模式，回复 SSE 流式输出
+- **AI 对话历史**：按「用户 + 会话」落库，可查看、可清空
 
 ## 📊 数据规模
 
@@ -32,10 +36,12 @@
 
 | 层 | 技术 |
 |----|------|
-| 前端 | Vue 3 (`<script setup>`) + Vite + Three.js + D3 |
+| 前端 | Vue 3 (`<script setup>`) + Vite + Three.js (WebGL / CSS2DRenderer) |
 | 后端 | Node.js + Express + Prisma + SQLite |
+| AI | 后端代理 OpenAI 兼容协议（默认 DeepSeek）+ SSE 流式输出 |
 | 认证 | JWT + bcryptjs |
-| 安全 | helmet + CORS 白名单 + 全接口限流 |
+| 安全 | helmet + CORS 白名单 + 全接口限流（AI 按用户限流） |
+| 部署 | Nginx 静态托管 + 反向代理、pm2 守护、Let's Encrypt HTTPS |
 
 ## 🚀 快速开始
 
@@ -51,6 +57,8 @@ cd backend
 cp .env.example .env      # 复制环境变量模板
 # 编辑 .env，填入 JWT_SECRET（可用下方命令生成）
 node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"
+# 需要 AI 对话功能时，再填 LLM_API_KEY（OpenAI 兼容服务的密钥，默认走 DeepSeek）
+# 不填也能正常启动，只是 /api/chat 返回 503
 
 npm install
 npx prisma db push        # 按 schema 建表
@@ -81,15 +89,15 @@ philosophy/
 │   │   ├── seed.js           # 数据导入（upsert，不误删用户数据）
 │   │   └── philosophers.json # 哲学家数据快照
 │   └── src/
-│       ├── routes/           # auth / philosophers / links / search
+│       ├── routes/           # auth / philosophers / links / search / chat(AI)
 │       ├── middleware/       # auth(JWT) / rateLimit / logger
 │       └── lib/              # prisma单例 / config / errors / format
 ├── philosophy-map/           # Vue 3 前端
 │   └── src/
-│       ├── components/       # StarMap / DetailCard / FilterPanel
+│       ├── components/       # StarMap / DetailCard / FilterPanel / GuidePanel(AI 向导)
 │       ├── composables/      # useAuth
-│       ├── api/              # API 请求封装
-│       └── data/             # 哲学家数据源
+│       ├── api/              # API 请求封装（含 SSE 流式解析）
+│       └── data/             # 配色常量（运行时数据来自后端 API）
 └── docs/
     └── AI-AGENT-PLAN.md      # AI 智能体接入规划
 ```
@@ -100,13 +108,16 @@ philosophy/
 |------|------|------|
 | GET | `/api/philosophers` | 哲学家列表（支持 era/school/nationality/name 筛选） |
 | GET | `/api/philosophers/:id` | 单哲学家详情 |
-| GET | `/api/philosophers/:id/context` | 完整语料 + 关系网（为 AI 对话注入预留） |
+| GET | `/api/philosophers/:id/context` | 完整语料 + 关系网（AI 对话的语料来源） |
 | GET | `/api/links` | 关系连线（按 influence/opposition 分组） |
 | GET | `/api/search?q=` | 全文搜索 |
 | POST | `/api/auth/register` / `/login` | 注册 / 登录 |
 | GET/POST | `/api/philosophers/me/history` | 浏览历史 |
 | GET/POST/DELETE | `/api/search/history` | 搜索历史 |
 | GET/POST/DELETE | `/api/philosophers/:id/favorite` | 收藏 |
+| POST | `/api/chat` | AI 对话（SSE 流式；`mode='guide'` 为全局推荐向导） |
+| GET/DELETE | `/api/chat/history?scope=` | AI 对话历史（scope 为 `guide` 或哲学家 id） |
+| GET | `/api/health` | 健康检查（含数据库连通性） |
 
 ## 🚢 部署
 
@@ -122,13 +133,17 @@ location /api/ {
 }
 ```
 
+线上部署形态：前端 `dist/` 由 Nginx 托管，`/api` 反向代理到 `pm2` 守护的 Node 进程（进程名 `philosophy-backend`），HTTPS 由 Let's Encrypt 签发。
+
+> ⚠️ SSE 流式响应需在 Nginx 侧关闭缓冲（`proxy_buffering off`），或由后端返回 `X-Accel-Buffering: no`，否则流式会退化为一次性返回。
+
 详细部署与 AI 接入方案见 `docs/AI-AGENT-PLAN.md`。
 
 ## 🧭 未来规划
 
-- [ ] 接入大模型智能体：与任意哲学家对话，深入探讨其思想
 - [ ] 数据扩充：更多哲学家与关系
 - [ ] 时间轴视图：按年代纵向展示思想流变
+- [ ] 用户系统扩展：账号设置、收藏夹分组
 
 ## 📄 License
 
